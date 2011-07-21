@@ -12,7 +12,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	loadCounter = 0;
+		loadCounter = 0;
 }
 
 - (void)viewDidAppear:(BOOL)animated {

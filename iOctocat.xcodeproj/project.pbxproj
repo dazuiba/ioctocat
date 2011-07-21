@@ -189,6 +189,7 @@
 		1D3623250D0F684500981E51 /* iOctocat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOctocat.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* iOctocat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOctocat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		22CE69BF12B7D0E900C92FC8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = iphoneos/System/Library/Frameworks/CFNetwork.framework; sourceTree = "<group>"; };
 		28A0AAE50D9B0CCF005BE974 /* iOctocat_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOctocat_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6F0AEFB6100CAAE500FB323E /* Networks.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Networks.xib; path = IBFiles/Networks.xib; sourceTree = "<group>"; };
@@ -530,6 +531,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				22CE69BF12B7D0E900C92FC8 /* CFNetwork.framework */,
 				6F6F176F11E316F3008B319F /* SystemConfiguration.framework */,
 				6F6F177311E316FE008B319F /* MobileCoreServices.framework */,
 				8CFBCFB20FAB8A6300A2C37A /* CFNetwork.framework */,
@@ -851,6 +853,7 @@
 				6F5A40860F90B25F00427ED7 /* User.xib */,
 				6F59BC930FC6C51800412597 /* Repositories.xib */,
 				6F5A41780F90C42800427ED7 /* Repository.xib */,
+				6F358C050FB1EAE0004D2828 /* Overlay.xib */,
 				6F0AEFB6100CAAE500FB323E /* Networks.xib */,
 				6F1DC6590F7E8D6900FCD26D /* WebView.xib */,
 				6FED82990FACA2F000BE5C81 /* Issues.xib */,
@@ -861,7 +864,6 @@
 				6F2C77431114F6DE002665DA /* Files.xib */,
 				6FF09F851115AFB500925109 /* Diff.xib */,
 				6F358C060FB1EAE0004D2828 /* Search.xib */,
-				6F358C050FB1EAE0004D2828 /* Overlay.xib */,
 			);
 			name = IBFiles;
 			sourceTree = "<group>";
@@ -1164,6 +1166,7 @@
 				GCC_PREFIX_HEADER = iOctocat_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				PRODUCT_NAME = iOctocat;
+				SDKROOT = iphoneos4.1;
 			};
 			name = Debug;
 		};
@@ -1176,6 +1179,7 @@
 				GCC_PREFIX_HEADER = iOctocat_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				PRODUCT_NAME = iOctocat;
+				SDKROOT = iphoneos4.1;
 			};
 			name = Release;
 		};
@@ -1206,6 +1210,7 @@
 				GCC_PREFIX_HEADER = iOctocat_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				PRODUCT_NAME = iOctocat;
+				SDKROOT = iphoneos4.1;
 			};
 			name = "App Store Distribution";
 		};
@@ -1237,6 +1242,7 @@
 				GCC_PREFIX_HEADER = iOctocat_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				PRODUCT_NAME = iOctocat;
+				SDKROOT = iphoneos4.1;
 			};
 			name = "Ad Hoc Distribution";
 		};
@@ -1272,6 +1278,7 @@
 				GCC_PREFIX_HEADER = iOctocat_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				PRODUCT_NAME = iOctocat;
+				SDKROOT = iphoneos4.1;
 			};
 			name = Analyze;
 		};

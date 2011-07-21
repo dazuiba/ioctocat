@@ -21,11 +21,11 @@
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
 	if ([elementName isEqualToString:@"entry"]) {
-		[resources addObject:currentEntry];
-		[currentEntry release], currentEntry = nil;
-	} else if ([elementName isEqualToString:@"id"]) {
-		currentEntry.entryID = currentElementValue;
-		NSString *event = [currentElementValue substringFromIndex:20];
+			[resources addObject:currentEntry];
+			[currentEntry release], currentEntry = nil;
+  	} else if ([elementName isEqualToString:@"id"]) {
+			currentEntry.entryID = currentElementValue;
+			NSString *event = [currentElementValue substringFromIndex:20];
 		if ([event hasPrefix:@"ForkApply"]) {
 			currentEntry.eventType = @"merge";
 		} else if ([event hasPrefix:@"Fork"]) {
