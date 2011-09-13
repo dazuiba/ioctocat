@@ -9,7 +9,7 @@
 - (void)savingFinished:(ASIHTTPRequest *)request;
 - (void)savingFailed:(ASIHTTPRequest *)request;
 - (void)parseData:(NSData *)data;
-- (void)parsingFinished:(id)theResult;
+- (void)parsingJSON:(id)theResult;
 - (void)parseSaveData:(NSData *)data;
 - (void)parsingSaveFinished:(id)theResult;
 @end
@@ -82,15 +82,32 @@
 
 - (void)loadingFailed:(ASIHTTPRequest *)request {
 	DJLog(@"Loading %@ failed: %@", [request url], [request error]);
-	[self parsingFinished:[request error]];
+	[self parsingFailed:[request error]];
 }
 
 - (void)parseData:(NSData *)data {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+		NSError *parseError = nil;
+    NSDictionary *dict = [[CJSONDeserializer deserializer] deserialize:data error:&parseError];
+		NSString *status = [dict objectForKey:@"status"];
+		if(status == @"error"){
+			[self performSelectorOnMainThread:@selector(parsingFailed:) withObject:[dict objectForKey:@"message"] waitUntilDone:YES];
+		}else{
+			[self performSelectorOnMainThread:@selector(parsingJSON:) withObject:[dict objectForKey:@"body"] waitUntilDone:YES];
+		}
+	  [pool release];	
+}
+
+- (void)parsingJSON:(id)body {
 	[NSException raise:@"GHResourceAbstractMethodException" format:@"The subclass of GHResource must implement this method"];
 }
 
-- (void)parsingFinished:(id)theResult {
-	[NSException raise:@"GHResourceAbstractMethodException" format:@"The subclass of GHResource must implement this method"];
+- (void)parsingFailed:(NSString *)errorMsg{
+    NSError *error = [NSError errorWithDomain:NetworkRequestErrorDomain
+																				 code:ASIInternalErrorWhileBuildingRequestType
+																		 userInfo:[NSDictionary dictionaryWithObject:errorMsg forKey:ASIInternalErrorWhileBuildingRequestType]];
+		self.error = error;
+		self.loadingStatus = GHResourceStatusNotLoaded;
 }
 
 #pragma mark Saving

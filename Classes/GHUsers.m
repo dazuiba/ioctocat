@@ -37,11 +37,11 @@
         [resources addObject:theUser];
     }
     id res = parseError ? (id)parseError : (id)resources;
-	[self performSelectorOnMainThread:@selector(parsingFinished:) withObject:res waitUntilDone:YES];
+	[self performSelectorOnMainThread:@selector(parsingJSON:) withObject:res waitUntilDone:YES];
     [pool release];
 }
 
-- (void)parsingFinished:(id)theResult {
+- (void)parsingJSON:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
 		self.loadingStatus = GHResourceStatusNotLoaded;

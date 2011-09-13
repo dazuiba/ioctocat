@@ -13,7 +13,7 @@
 - (id)initWithURLFormat:(NSString *)theFormat andParserDelegateClass:(Class)theDelegateClass {
 	[super init];
 	urlFormat = [theFormat retain];
-	parserDelegate = [(GHResourcesParserDelegate *)[theDelegateClass alloc] initWithTarget:self andSelector:@selector(parsingFinished:)];
+	parserDelegate = [(GHResourcesParserDelegate *)[theDelegateClass alloc] initWithTarget:self andSelector:@selector(parsingJSON:)];
 	return self;
 }
 
@@ -50,7 +50,7 @@
 	[pool release];
 }
 
-- (void)parsingFinished:(id)theResult {
+- (void)parsingJSON:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
 		self.loadingStatus = GHResourceStatusNotLoaded;

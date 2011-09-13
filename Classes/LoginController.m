@@ -32,7 +32,7 @@
 }
 
 - (void)failWithMessage:(NSString *)theMessage {
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authentication failed" message:theMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kMsgLoginFailedTitle message:theMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 	[alert show];
 	[alert release];
 	submitButton.enabled = YES;

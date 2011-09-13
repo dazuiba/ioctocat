@@ -69,7 +69,7 @@
 
 - (void)parseData:(NSData *)data {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	GHIssuesParserDelegate *parserDelegate = [[GHIssuesParserDelegate alloc] initWithTarget:self andSelector:@selector(parsingFinished:)];
+	GHIssuesParserDelegate *parserDelegate = [[GHIssuesParserDelegate alloc] initWithTarget:self andSelector:@selector(parsingJSON:)];
 	parserDelegate.repository = repository;
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];	
 	[parser setDelegate:parserDelegate];
@@ -82,7 +82,7 @@
 	[pool release];
 }
 
-- (void)parsingFinished:(id)theResult {
+- (void)parsingJSON:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
 		self.loadingStatus = GHResourceStatusNotLoaded;

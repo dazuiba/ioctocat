@@ -33,24 +33,32 @@ NSString *md5(NSString *str) {
 	[super dealloc];
 }
 
-- (void)loadEmail:(NSString *)theEmail withSize:(NSInteger)theSize {
-	// Lowercase the email since SteveJobs@apple.com and stevejobs@apple.com are
-	// the same person but gravatar only recognizes the md5 of the latter
-	NSString *hash = md5([theEmail lowercaseString]);
-	[self loadHash:hash withSize:theSize];
-}
+// - (void)loadEmail:(NSString *)theEmail withSize:(NSInteger)theSize {
+// 	// Lowercase the email since SteveJobs@apple.com and stevejobs@apple.com are
+// 	// the same person but gravatar only recognizes the md5 of the latter
+// 	NSString *hash = md5([theEmail lowercaseString]);
+// 	[self loadHash:hash withSize:theSize];
+// }
+// 
+// - (void)loadHash:(NSString *)theHash withSize:(NSInteger)theSize {
+// 	NSArray *args = [[NSArray alloc] initWithObjects:theHash, [NSNumber numberWithInteger:theSize], nil];
+// 	[self performSelectorInBackground:@selector(requestWithArgs:) withObject:args];
+// 	[args release];
+// }
 
-- (void)loadHash:(NSString *)theHash withSize:(NSInteger)theSize {
-	NSArray *args = [[NSArray alloc] initWithObjects:theHash, [NSNumber numberWithInteger:theSize], nil];
-	[self performSelectorInBackground:@selector(requestWithArgs:) withObject:args];
-	[args release];
+- (void)loadURL:(NSString *)url{
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	NSData *gravatarData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+	UIImage *gravatarImage = [UIImage imageWithData:gravatarData];
+	if (gravatarImage) [target performSelectorOnMainThread:handle withObject:gravatarImage waitUntilDone:NO];
+ 	[pool release];	
 }
 
 - (void)requestWithArgs:(NSArray *)theArgs {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSString *hash = [theArgs objectAtIndex:0];
 	NSInteger size = [[theArgs objectAtIndex:1] integerValue];
-	NSString *url = [NSString stringWithFormat:@"http://www.gravatar.com/avatar/%@?s=%d&d=http://dbloete.github.com/ioctocat/images/DefaultGravatar44.png", hash, size];
+	NSString *url = [NSString stringWithFormat:@"http://www.1q84.fm/system/avatars/5/normal_6731_.jpg", hash, size];
 	NSURL *gravatarURL = [NSURL URLWithString:url];
 	NSData *gravatarData = [NSData dataWithContentsOfURL:gravatarURL];
 	UIImage *gravatarImage = [UIImage imageWithData:gravatarData];

@@ -34,9 +34,7 @@
 	if (!self.currentUser.following.isLoaded) [self.currentUser.following loadData];
 	[user addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[user.repositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	(user.isLoaded) ? [self displayUser] : [user loadUser];
-	if (!user.repositories.isLoaded) [user.repositories loadData];
 	self.navigationItem.title = user.login;
 	self.tableView.tableHeaderView = tableHeaderView;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
@@ -45,7 +43,6 @@
 - (void)dealloc {
 	[user removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[user removeObserver:self forKeyPath:kUserGravatarKeyPath];
-	[user.repositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[user release];
 	[tableHeaderView release];
 	[nameLabel release];
@@ -96,11 +93,8 @@
 
 - (void)displayUser {
 	nameLabel.text = (!user.name || [user.name isEmpty]) ? user.login : user.name;
-	companyLabel.text = user.company;
+	companyLabel.text = user.bio;
 	gravatarView.image = user.gravatar;
-	[locationCell setContentText:user.location];
-	[blogCell setContentText:[user.blogURL host]];
-	[emailCell setContentText:user.email];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -113,14 +107,6 @@
 		} else if (user.error) {
 			NSString *message = [NSString stringWithFormat:@"Could not load the user %@", user.login];
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-			[alert show];
-			[alert release];
-		}
-	} else if (object == user.repositories && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		if (user.repositories.isLoaded) {
-			[self.tableView reloadData];
-		} else if (user.repositories.error) {
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the repositories" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 			[alert show];
 			[alert release];
 		}
@@ -138,8 +124,8 @@
 	if (!user.isLoaded) return 1;
 	if (section == 0) return 3;
     if (section == 1) return 3;
-	if (!user.repositories.isLoaded || user.repositories.repositories.count == 0) return 1;
-	if (section == 2) return user.repositories.repositories.count;
+//	if (!user.repositories.isLoaded || user.repositories.repositories.count == 0) return 1;
+//	if (section == 2) return user.repositories.repositories.count;
 	return 1;
 }
 
@@ -167,15 +153,13 @@
 	if (section == 1 && row == 0) return recentActivityCell;
 	if (section == 1 && row == 1) return followingCell;
 	if (section == 1 && row == 2) return followersCell;
-	if (!user.repositories.isLoaded) return loadingReposCell;
-	if (section == 2 && user.repositories.repositories.count == 0) return noPublicReposCell;
-	if (section == 2) {
-		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
-		if (cell == nil) cell = [[[RepositoryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kRepositoryCellIdentifier] autorelease];
-		cell.repository = [user.repositories.repositories objectAtIndex:indexPath.row];
-		[cell hideOwner];
-		return cell;
-	}
+	//if (section == 2) {
+//		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
+//		if (cell == nil) cell = [[[RepositoryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kRepositoryCellIdentifier] autorelease];
+//		cell.repository = [user.repositories.repositories objectAtIndex:indexPath.row];
+//		[cell hideOwner];
+//		return cell;
+//	}
 	return nil;
 }
 
@@ -183,20 +167,11 @@
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
 	UIViewController *viewController = nil;
-	if (section == 0 && row == 1 && user.blogURL) {
-		viewController = [[WebController alloc] initWithURL:user.blogURL];
-	} else if (section == 0 && row == 2 && user.email) {
-		NSString *mailString = [NSString stringWithFormat:@"mailto:%@", user.email];
-		NSURL *mailURL = [NSURL URLWithString:mailString];
-		[[UIApplication sharedApplication] openURL:mailURL];
-	} else if (section == 1 && row == 0) {
-        viewController = [[FeedController alloc] initWithFeed:user.recentActivity andTitle:@"Recent Activity"];     
+	if (section == 1 && row == 0) {
+    viewController = [[FeedController alloc] initWithFeed:user.recentActivity andTitle:@"Recent Activity"];     
 	} else if (section == 1) {
-        viewController = [[UsersController alloc] initWithUsers:(row == 1 ? user.following : user.followers)];
+    viewController = [[UsersController alloc] initWithUsers:(row == 1 ? user.following : user.followers)];
 		viewController.title = (row == 1) ? @"Following" : @"Followers";         
-	} else if (section == 2) {
-		GHRepository *repo = [user.repositories.repositories objectAtIndex:indexPath.row];
-		viewController = [[RepositoryController alloc] initWithRepository:repo];
 	}
 	// Maybe push a controller
 	if (viewController) {

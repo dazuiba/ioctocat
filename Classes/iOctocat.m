@@ -129,7 +129,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	[defaults setValue:[url password] forKey:kTokenDefaultsKey];
 	[defaults synchronize];
 	// Inform the user
-	NSString *message = [NSString stringWithFormat:@"Username: %@\nAPI Token: %@", [defaults valueForKey:kLoginDefaultsKey], [defaults valueForKey:kTokenDefaultsKey]];
+	NSString *message = [NSString stringWithFormat:@"Username: %@\n	: %@", [defaults valueForKey:kLoginDefaultsKey], [defaults valueForKey:kTokenDefaultsKey]];
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"New credentials" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 	[alert show];
 	[alert release];
@@ -145,9 +145,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 		[self presentLogin];
 	} else {
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-		NSString *token = [defaults valueForKey:kTokenDefaultsKey];
+		// NSString *token = [defaults valueForKey:kTokenDefaultsKey];
 		[self.currentUser addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		[self.currentUser authenticateWithToken:token];
+		[self.currentUser loadData];
 	}
 }
 
@@ -161,7 +161,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 			[self proceedAfterAuthentication];
 		} else {
 			[self presentLogin];
-			[self.loginController failWithMessage:@"Please ensure that you are connected to the internet and that your login and API token are correct"];
+			[self.loginController failWithMessage:kMsgLoginFailedExplain];
 		}
 	}
 }

@@ -10,21 +10,17 @@
 	NSString *name;
 	NSString *login;
 	NSString *email;
-	NSString *company;
+	NSString *bio;
 	NSString *location;
-	NSString *gravatarHash;
+	NSString *avatarPath;
 	NSString *searchTerm;
-	NSURL *blogURL;
 	UIImage *gravatar;
-	NSUInteger publicGistCount;
-	NSUInteger privateGistCount;
-	NSUInteger publicRepoCount;
-	NSUInteger privateRepoCount;
-	GHRepositories *repositories;
-	GHRepositories *watchedRepositories;
+	NSString *createdAt;
+	NSUInteger listenersCount;
+	NSUInteger favoritesCount;
 	GHFeed *recentActivity;
-    GHUsers *following;
-    GHUsers *followers;
+  GHUsers *following;
+  GHUsers *followers;
 	BOOL isAuthenticated;
   @private
 	GravatarLoader *gravatarLoader;
@@ -33,23 +29,20 @@
 @property(nonatomic,retain)NSString *name;
 @property(nonatomic,retain)NSString *login;
 @property(nonatomic,retain)NSString *email;
-@property(nonatomic,retain)NSString *company;
+@property(nonatomic,retain)NSString *bio;
 @property(nonatomic,retain)NSString *location;
-@property(nonatomic,retain)NSString *gravatarHash;
+@property(nonatomic,retain)NSString *createdAt;
+@property(nonatomic,retain)NSString *url;
 @property(nonatomic,retain)NSString *searchTerm;
-@property(nonatomic,retain)NSURL *blogURL;
+@property(nonatomic,retain)NSString *avatarPath;
 @property(nonatomic,retain)UIImage *gravatar;
-@property(nonatomic,retain)GHRepositories *repositories;
-@property(nonatomic,retain)GHRepositories *watchedRepositories;
 @property(nonatomic,retain)GHFeed *recentActivity;
 @property(nonatomic,retain)GHUsers *following;
 @property(nonatomic,retain)GHUsers *followers;
 @property(nonatomic,readonly)NSString *cachedGravatarPath;
 @property(nonatomic)BOOL isAuthenticated;
-@property(nonatomic)NSUInteger publicGistCount;
-@property(nonatomic)NSUInteger privateGistCount;
-@property(nonatomic)NSUInteger publicRepoCount;
-@property(nonatomic)NSUInteger privateRepoCount;
+@property(nonatomic)NSUInteger listenersCount;
+@property(nonatomic)NSUInteger favoritesCount;
 
 + (id)user;
 + (id)userForSearchTerm:(NSString *)theSearchTerm;
@@ -59,12 +52,9 @@
 - (void)loadUser;
 - (void)loadedUsers:(id)theResult;
 - (void)loadedGravatar:(UIImage *)theImage;
-- (void)authenticateWithToken:(NSString *)theToken;
 - (BOOL)isFollowing:(GHUser *)anUser;
 - (BOOL)isWatching:(GHRepository *)aRepository;
 - (void)followUser:(GHUser *)theUser;
 - (void)unfollowUser:(GHUser *)theUser;
-- (void)watchRepository:(GHRepository *)theRepository;
-- (void)unwatchRepository:(GHRepository *)theRepository;
 
 @end
