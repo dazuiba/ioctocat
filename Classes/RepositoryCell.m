@@ -22,12 +22,16 @@
 	[theRepository retain];
 	[repository release];
 	repository = theRepository;
-	self.imageView.image = [UIImage imageNamed:(repository.isPrivate ? @"private.png" : @"public.png")];
-    self.textLabel.text = [NSString stringWithFormat:@"%@/%@", repository.owner, repository.name];
+	self.textLabel.text = repository.name;
+	[repository addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
+//    gravatarView.image = user.gravatar;
+//	if (!gravatarView.image && !user.isLoaded) [user loadUser];
 }
 
-- (void)hideOwner {
-	self.textLabel.text = repository.name;
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+//	if ([keyPath isEqualToString:kUserGravatarKeyPath] && repository.gravatar) {
+//		gravatarView.image = repository.gravatar;
+//	}
 }
 
 @end

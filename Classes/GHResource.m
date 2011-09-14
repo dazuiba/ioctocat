@@ -46,15 +46,15 @@
 #pragma mark Request
 
 + (ASIFormDataRequest *)authenticatedRequestForURL:(NSURL *)url {
-   	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *login = [defaults stringForKey:kLoginDefaultsKey];
 	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
 	
 	ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
 	// Authentication with token via HTTP Basic Auth, see:
 	// http://support.github.com/discussions/api/57-reposshowlogin-is-missing-private-repositories
-	NSString *loginWithTokenPostfix = [NSString stringWithFormat:@"%@/token", login];
-	[request setUsername:loginWithTokenPostfix];
+	// NSString *loginWithTokenPostfix = [NSString stringWithFormat:@"%@/token", login];
+	[request setUsername:login];
 	[request setPassword:token];
     
 	return request;
@@ -90,7 +90,9 @@
 		NSError *parseError = nil;
     NSDictionary *dict = [[CJSONDeserializer deserializer] deserialize:data error:&parseError];
 		NSString *status = [dict objectForKey:@"status"];
-		if(status == @"error"){
+		DJLog(@"parseData->status %@", status);
+
+		if([status isEqualToString:@"error"]){
 			[self performSelectorOnMainThread:@selector(parsingFailed:) withObject:[dict objectForKey:@"message"] waitUntilDone:YES];
 		}else{
 			[self performSelectorOnMainThread:@selector(parsingJSON:) withObject:[dict objectForKey:@"body"] waitUntilDone:YES];
@@ -98,16 +100,19 @@
 	  [pool release];	
 }
 
-- (void)parsingJSON:(id)body {
+- (void)parsingJSON:(id)body {	
 	[NSException raise:@"GHResourceAbstractMethodException" format:@"The subclass of GHResource must implement this method"];
 }
 
 - (void)parsingFailed:(NSString *)errorMsg{
-    NSError *error = [NSError errorWithDomain:NetworkRequestErrorDomain
-																				 code:ASIInternalErrorWhileBuildingRequestType
-																		 userInfo:[NSDictionary dictionaryWithObject:errorMsg forKey:ASIInternalErrorWhileBuildingRequestType]];
-		self.error = error;
-		self.loadingStatus = GHResourceStatusNotLoaded;
+		DJLog(@"%@", errorMsg);	
+	
+		NSError *theError = [[NSError alloc] initWithDomain:kAppErrorDomain
+																		 code:1
+																 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:errorMsg,NSLocalizedDescriptionKey,nil]];
+	  self.error = theError;
+		self.loadingStatus = GHResourceStatusLoaded;
+
 }
 
 #pragma mark Saving

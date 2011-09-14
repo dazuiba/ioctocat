@@ -22,20 +22,17 @@
 
 
 @implementation GHUser
-
+@synthesize entryID;
 @synthesize name;
 @synthesize login;
 @synthesize email;
 @synthesize location;
 @synthesize bio;
-@synthesize avatarPath;
 @synthesize url;
 @synthesize createdAt;
 @synthesize searchTerm;
-@synthesize gravatar;
-@synthesize isAuthenticated;
 @synthesize recentActivity;
-@synthesize listenersCount;
+@synthesize broadcastCount;
 @synthesize favoritesCount;
 @synthesize following;
 @synthesize followers;
@@ -56,11 +53,16 @@
 	return user;
 }
 
++ (id)userWithDict:(NSDictionary *)attributes {
+	GHUser *user = [GHUser user];
+	user.login = [attributes objectForKey:@"login"];
+	[self setByDict:attributes];
+	return user;
+}
+
 - (id)init {
 	[super init];
 	[self addObserver:self forKeyPath:kUserLoginKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	isAuthenticated = NO;
-	gravatarLoader = [[GravatarLoader alloc] initWithTarget:self andHandle:@selector(loadedGravatar:)];
 	return self;
 }
 
@@ -78,13 +80,13 @@
 	[email release];
 	[location release];
 	[searchTerm release];
-	[avatarPath release];
+	[self.avatarPath release];
 	[url release];
 	[createdAt release];
   [bio release];
-	[gravatar release];
+	[self.gravatar release];
 	
-	[gravatarLoader release];
+	[self.gravatarLoader release];
 	[recentActivity release];
   [following release];
   [followers release];
@@ -104,120 +106,59 @@
     return [login localizedCaseInsensitiveCompare:[theOtherUser login]];
 }
 
+
 - (void)setLogin:(NSString *)theLogin {
 	[theLogin retain];
 	[login release];
-	[resourceURL release];
 	login = theLogin;
-	// Build Resource URL
-	NSString *urlString = [NSString stringWithFormat:kUserFormat, login];
-	self.resourceURL = [NSURL URLWithString:urlString];
-	
-	// Repositories
-	NSString *repositoriesURLString = [NSString stringWithFormat:kUserReposFormat, login];
-	NSString *watchedRepositoriesURLString = [NSString stringWithFormat:kUserWatchedReposFormat, login];
-	NSURL *repositoriesURL = [NSURL URLWithString:repositoriesURLString];
-	NSURL *watchedRepositoriesURL = [NSURL URLWithString:watchedRepositoriesURLString];
 	// Recent Activity
 	NSString *activityFeedURLString = [NSString stringWithFormat:kUserFeedFormat, login];
 	NSURL *activityFeedURL = [NSURL URLWithString:activityFeedURLString];
 	self.recentActivity = [GHFeed resourceWithURL:activityFeedURL];
 }
 
+- (NSURL *)resourceURL {																												
+ 	return [iOctocat urlWithFormat:kUserFormat, login]; 
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kUserLoginKeyPath]) {
 		NSString *newLogin = [(GHUser *)object login];
-		NSString *followingURLString = [NSString stringWithFormat:kUserFollowingFormat, newLogin];
-		NSString *followersURLString = [NSString stringWithFormat:kUserFollowersFormat, newLogin];
-		NSURL *followingURL = [NSURL URLWithString:followingURLString];
-		NSURL *followersURL = [NSURL URLWithString:followersURLString];
-		self.following = [[[GHUsers alloc] initWithUser:self andURL:followingURL] autorelease];
-		self.followers = [[[GHUsers alloc] initWithUser:self andURL:followersURL] autorelease];
+		self.following = [[[GHUsers alloc] initWithUser:self andURL:[iOctocat urlWithFormat:kUserFollowingFormat, newLogin]] autorelease];
+		self.followers = [[[GHUsers alloc] initWithUser:self andURL:[iOctocat urlWithFormat:kUserFollowersFormat, newLogin]] autorelease];
 	}
 }
 
 #pragma mark User loading
 
 - (void)loadUser {
-	// if (self.isLoading) return;
-	// self.error = nil;
-	// self.loadingStatus = GHResourceStatusLoading;
-	// [self performSelectorInBackground:@selector(parseXMLWithToken:) withObject:nil];
 	[self loadData];
 }
 
-- (void)authenticateWithToken:(NSString *)theToken {
-	if (self.isLoading) return;
-	self.error = nil;
-	self.loadingStatus = GHResourceStatusLoading;
-	[self performSelectorInBackground:@selector(parseXMLWithToken:) withObject:theToken];
-}
-
-// - (void)parseXMLWithToken:(NSString *)token {
-// 	
-// 	
-// 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-// 	NSString *userURLString;
-// 	if (login) {
-// 		userURLString = token ? [NSString stringWithFormat:kAuthenticateUserXMLFormat, login, login, token] : [NSString stringWithFormat:kUserXMLFormat, login];
-// 	} else {
-// 		userURLString = [NSString stringWithFormat:kUserSearchFormat, searchTerm];
-// 	}
-// 	NSURL *userURL = [NSURL URLWithString:userURLString];    
-// 	GHUsersParserDelegate *parserDelegate = [[GHUsersParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedUsers:)];
-// 	NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:userURL];
-// 	[parser setDelegate:parserDelegate];
-// 	[parser setShouldProcessNamespaces:NO];
-// 	[parser setShouldReportNamespacePrefixes:NO];
-// 	[parser setShouldResolveExternalEntities:NO];
-// 	[parser parse];
-// 	[parser release];
-// 	[parserDelegate release];
-// 	[pool release];
-// }
-
-- (NSInteger)gravatarSize {
-	UIScreen *mainScreen = [UIScreen mainScreen];
-	CGFloat deviceScale = ([mainScreen respondsToSelector:@selector(scale)]) ? [mainScreen scale] : 1.0;
-	NSInteger size = kImageGravatarMaxLogicalSize * MAX(deviceScale, 1.0);
-	return size;
-}
 
 - (void)parsingJSON:(id)theResult {
+		DJLog(@""); 
 		NSDictionary *user = [theResult objectForKey:@"user"];
-		self.name = [user objectForKey:@"name"];
-		self.login =[user objectForKey:@"login"];
-		self.bio = [user objectForKey:@"bio"];
-		self.listenersCount = [user objectForKey:@"listenersCount"];
-		self.favoritesCount = [user objectForKey:@"favoritesCount"];
-		self.createdAt = [user objectForKey:@"created_at"];
-		self.avatarPath = [user objectForKey:@"avatar"];
-		[gravatarLoader loadUrl:avatarPath];
+		[self setByDict:user];
+		self.loadingStatus = GHResourceStatusLoaded;
 }
 
+- (void)setByDict:(NSDictionary *)dict{
+	self.entryID = [dict objectForKey:@"id"];
+	self.name = [dict objectForKey:@"name"];
+	self.email =[dict objectForKey:@"email"];
+	self.bio = [dict objectForKey:@"bio"];
+	self.broadcastCount = [[dict objectForKey:@"broadcast_count"] integerValue];
+	self.favoritesCount = [[dict objectForKey:@"favorites_count"] integerValue];
+	self.createdAt = [dict objectForKey:@"created_at"];
+	self.avatarPath = [dict objectForKey:@"avatar"];
+	if(self.avatarPath)
+		[self.gravatarLoader loadURL:self.avatarPath];
+}
 
-// - (void)loadedUsers:(id)theResult {
-// 	if ([theResult isKindOfClass:[NSError class]]) {
-// 		self.error = theResult;
-// 	} else if ([(NSArray *)theResult count] > 0) {
-// 		GHUser *user = [(NSArray *)theResult objectAtIndex:0];
-// 		if (!login || [login isEmpty]) self.login = user.login;
-// 		self.name = user.name;
-// 		self.email = user.email;
-// 		self.company = user.company;
-// 		self.location = user.location;
-// 		self.gravatarHash = user.gravatarHash;
-// 		self.blogURL = user.blogURL;
-// 		self.publicGistCount = user.publicGistCount;
-// 		self.privateGistCount = user.privateGistCount;
-// 		self.publicRepoCount = user.publicRepoCount;
-// 		self.privateRepoCount = user.privateRepoCount;
-// 		self.isAuthenticated = user.isAuthenticated;
-// 		if (gravatarHash) [gravatarLoader loadHash:gravatarHash withSize:[self gravatarSize]];
-// 		else if (email) [gravatarLoader loadEmail:email withSize:[self gravatarSize]];
-// 	}
-// 	self.loadingStatus = GHResourceStatusLoaded;
-// }
+- (BOOL)isAuthenticated{
+	return self.email != NULL;
+}
 
 #pragma mark Following
 
@@ -258,20 +199,6 @@
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Could not change following status." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 	[alert show];
 	[alert release];
-}
-
-#pragma mark Gravatar
-
-- (void)loadedGravatar:(UIImage *)theImage {
-	self.gravatar = theImage;
-	[UIImagePNGRepresentation(theImage) writeToFile:self.cachedGravatarPath atomically:YES];
-}
-
-- (NSString *)cachedGravatarPath {
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString *documentsPath = [paths objectAtIndex:0];
-	NSString *imageName = [NSString stringWithFormat:@"%@.png", login];
-	return [documentsPath stringByAppendingPathComponent:imageName];
 }
 
 @end

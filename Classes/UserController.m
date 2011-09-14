@@ -116,16 +116,15 @@
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (!user.isLoaded) return 1;
+  if (!user.isLoaded) return 1;
 	return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (!user.isLoaded) return 1;
 	if (section == 0) return 3;
-    if (section == 1) return 3;
-//	if (!user.repositories.isLoaded || user.repositories.repositories.count == 0) return 1;
-//	if (section == 2) return user.repositories.repositories.count;
+  if (section == 1) return 3;
+	if (section == 2) return 2;
 	return 1;
 }
 
@@ -153,13 +152,23 @@
 	if (section == 1 && row == 0) return recentActivityCell;
 	if (section == 1 && row == 1) return followingCell;
 	if (section == 1 && row == 2) return followersCell;
-	//if (section == 2) {
-//		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
-//		if (cell == nil) cell = [[[RepositoryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kRepositoryCellIdentifier] autorelease];
-//		cell.repository = [user.repositories.repositories objectAtIndex:indexPath.row];
-//		[cell hideOwner];
-//		return cell;
-//	}
+	if (section == 2) {
+		UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kProfileStatCellIdentifier];
+    if (cell == nil) {
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kProfileStatCellIdentifier] autorelease];
+			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+			cell.textLabel.font = [UIFont systemFontOfSize:16.0f];
+    }
+ 		NSString *format = @"%@(%d首)";
+		if(indexPath.row == 0){ 
+			cell.imageView.image = [UIImage imageNamed: @"public.png"];
+			cell.textLabel.text = [NSString stringWithFormat:format, @"分享的歌曲", user.broadcastCount];
+		}else {
+			cell.imageView.image = [UIImage imageNamed: @"private.png"];
+			cell.textLabel.text = [NSString stringWithFormat:format, @"收藏的歌曲", user.favoritesCount];
+		}
+		return cell;
+	}
 	return nil;
 }
 

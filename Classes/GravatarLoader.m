@@ -13,12 +13,6 @@ NSString *md5(NSString *str) {
 			result[8], result[9], result[10], result[11], result[12], result[13], result[14], result[15]];
 } 
 
-
-@interface GravatarLoader ()
-- (void)requestWithArgs:(NSArray *)theArgs;
-@end
-
-
 @implementation GravatarLoader
 
 - (id)initWithTarget:(id)theTarget andHandle:(SEL)theHandle {
@@ -46,24 +40,14 @@ NSString *md5(NSString *str) {
 // 	[args release];
 // }
 
-- (void)loadURL:(NSString *)url{
+- (void)loadURL:(NSString *)theUrl{
+
+	DJLog(@"url: %@",theUrl);
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSData *gravatarData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+	NSData *gravatarData = [NSData dataWithContentsOfURL:[NSURL URLWithString:theUrl]];
 	UIImage *gravatarImage = [UIImage imageWithData:gravatarData];
 	if (gravatarImage) [target performSelectorOnMainThread:handle withObject:gravatarImage waitUntilDone:NO];
  	[pool release];	
-}
-
-- (void)requestWithArgs:(NSArray *)theArgs {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSString *hash = [theArgs objectAtIndex:0];
-	NSInteger size = [[theArgs objectAtIndex:1] integerValue];
-	NSString *url = [NSString stringWithFormat:@"http://www.1q84.fm/system/avatars/5/normal_6731_.jpg", hash, size];
-	NSURL *gravatarURL = [NSURL URLWithString:url];
-	NSData *gravatarData = [NSData dataWithContentsOfURL:gravatarURL];
-	UIImage *gravatarImage = [UIImage imageWithData:gravatarData];
-	if (gravatarImage) [target performSelectorOnMainThread:handle withObject:gravatarImage waitUntilDone:NO];
- 	[pool release];
-}
+} 
 
 @end

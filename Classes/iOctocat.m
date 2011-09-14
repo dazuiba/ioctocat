@@ -23,6 +23,7 @@
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 
+
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 	// Beware of zombies!
 	if(getenv("NSZombieEnabled") || getenv("NSAutoreleaseFreedObjectCheckEnabled")) {
@@ -94,6 +95,16 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	}
 }
 
++ (NSURL *)urlWithFormat:(NSString *)format, ...{
+	va_list argumentList;
+	va_start(argumentList, format);
+	NSString *urlString = [[NSString alloc] initWithFormat:[NSString stringWithFormat:kURLFormat,format] arguments:argumentList];
+  va_end(argumentList);
+  NSURL *url = [NSURL URLWithString:urlString];
+	[urlString release];
+	return url;
+}
+
 + (NSDate *)parseDate:(NSString *)string {
 	static NSDateFormatter *dateFormatter;
 	if (dateFormatter == nil) {
@@ -144,8 +155,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	if (!self.currentUser) {
 		[self presentLogin];
 	} else {
-		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-		// NSString *token = [defaults valueForKey:kTokenDefaultsKey];
 		[self.currentUser addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 		[self.currentUser loadData];
 	}
@@ -196,6 +205,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 - (void)proceedAfterAuthentication {
 	[self dismissLogin];
 	[feedController setupFeeds];
+	
 }
 
 #pragma mark Persistent State

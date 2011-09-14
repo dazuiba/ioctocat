@@ -21,6 +21,7 @@
 @property(nonatomic,retain)NSDate *didBecomeActiveDate;
 @property(nonatomic,readonly)LoginController *loginController;
 
++ (NSURL *)urlWithFormat:(NSString *)format, ...;
 + (ASINetworkQueue *)queue;
 + (iOctocat *)sharedInstance;
 + (NSDate *)parseDate:(NSString *)theString;

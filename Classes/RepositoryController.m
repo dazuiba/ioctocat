@@ -89,7 +89,7 @@
 - (void)displayRepository {
     iconView.image = [UIImage imageNamed:(repository.isPrivate ? @"private.png" : @"public.png")];
 	nameLabel.text = repository.name;
-	numbersLabel.text = repository.isLoaded ? [NSString stringWithFormat:@"%d %@ / %d %@", repository.watchers, repository.watchers == 1 ? @"watcher" : @"watchers", repository.forks, repository.forks == 1 ? @"fork" : @"forks"] : @"";
+	numbersLabel.text = repository.isLoaded ? [NSString stringWithFormat:@"%d %@ / %d %@", repository.watchers, repository.watchers == 1 ? @"watcher" : @"watchers", repository.replies, repository.replies == 1 ? @"fork" : @"replies"] : @"";
     if (repository.isFork) forkLabel.text = @"forked";
 	[ownerCell setContentText:repository.owner];
 	[websiteCell setContentText:[repository.homepageURL host]];

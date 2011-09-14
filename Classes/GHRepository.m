@@ -9,14 +9,15 @@
 
 @implementation GHRepository
 
+@synthesize entryID;
 @synthesize name;
 @synthesize owner;
 @synthesize descriptionText;
-@synthesize githubURL;
+@synthesize streamURL;
 @synthesize homepageURL;
 @synthesize isPrivate;
 @synthesize isFork;
-@synthesize forks;
+@synthesize replies;
 @synthesize watchers;
 @synthesize openIssues;
 @synthesize closedIssues;
@@ -25,6 +26,17 @@
 
 + (id)repositoryWithOwner:(NSString *)theOwner andName:(NSString *)theName {
 	return [[[[self class] alloc] initWithOwner:theOwner andName:theName] autorelease];
+}
+
++ (id)repositoryWithDict:(NSDictionary *)dict {
+	return [[[[self class] alloc] initWithDict:dict] autorelease];
+
+}
+
+- (id)initWithDict:(NSDictionary *)dict{
+	[super init];
+	[self setByDict:dict];
+	return self;
 }
 
 - (id)initWithOwner:(NSString *)theOwner andName:(NSString *)theName {
@@ -37,7 +49,7 @@
 	[name release];
 	[owner release];
 	[descriptionText release];
-	[githubURL release];
+	[streamURL release];
 	[homepageURL release];
     [openIssues release];
     [closedIssues release];
@@ -56,14 +68,11 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHRepository name:'%@' owner:'%@' descriptionText:'%@' githubURL:'%@' homepageURL:'%@' isPrivate:'%@' isFork:'%@' forks:'%d' watchers:'%d'>", name, owner, descriptionText, githubURL, homepageURL, isPrivate ? @"YES" : @"NO", isFork ? @"YES" : @"NO", forks, watchers];
+    return [NSString stringWithFormat:@"<GHRepository name:'%@' owner:'%@' descriptionText:'%@' streamURL:'%@'>", name, owner, descriptionText, streamURL];
 }
 
 - (NSURL *)resourceURL {
-	// Dynamic resourceURL, because it depends on the
-	// owner and name which isn't always available in advance
-	NSString *urlString = [NSString stringWithFormat:kRepoXMLFormat, owner, name];
-	return [NSURL URLWithString:urlString];
+ 	return [iOctocat urlWithFormat:kRepoXMLFormat, entryID]; 
 }
 
 - (void)setOwner:(NSString *)theOwner andName:(NSString *)theName {
@@ -103,22 +112,20 @@
 }
 
 - (void)parsingJSON:(id)theResult {
-	if ([theResult isKindOfClass:[NSError class]]) {
-		self.error = theResult;
-		self.loadingStatus = GHResourceStatusNotLoaded;
-	} else {
+		DJLog(@""); 
+		// NSDictionary *user = [theResult objectForKey:@""];
+		
 		self.loadingStatus = GHResourceStatusLoaded;
-		if ([(NSArray *)theResult count] == 0) return;
-		GHRepository *repo = [(NSArray *)theResult objectAtIndex:0];
-		self.descriptionText = repo.descriptionText;
-		self.githubURL = repo.githubURL;
-		self.homepageURL = repo.homepageURL;
-		self.isFork = repo.isFork;
-		self.isPrivate = repo.isPrivate;
-		self.forks = repo.forks;
-		self.watchers = repo.watchers;
-		self.loadingStatus = GHResourceStatusLoaded;
-	}
+}
+
+- (void)setByDict:(NSDictionary *)dict{
+	self.entryID = [dict objectForKey:@"id"];
+	self.name = [dict objectForKey:@"name"];
+	self.streamURL =[dict objectForKey:@"stream"];
+	NSDictionary *albumDict = [dict objectForKey:@"album"];
+	self.avatarPath = [albumDict objectForKey:@"image_url"];
+	if(self.avatarPath)
+		[self.gravatarLoader loadURL:self.avatarPath];
 }
 
 @end

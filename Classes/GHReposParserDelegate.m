@@ -29,15 +29,15 @@
 	} else if ([elementName isEqualToString:@"description"]) {
 		currentRepository.descriptionText = currentElementValue;
 	} else if ([elementName isEqualToString:@"url"]) {
-		currentRepository.githubURL = ([currentElementValue isEqualToString:@""]) ? nil : [NSURL URLWithString:currentElementValue];
+		currentRepository.streamURL = ([currentElementValue isEqualToString:@""]) ? nil : [NSURL URLWithString:currentElementValue];
 	} else if ([elementName isEqualToString:@"homepage"]) {
 		currentRepository.homepageURL = ([currentElementValue isEqualToString:@""]) ? nil : [NSURL URLWithString:currentElementValue];
 	} else if ([elementName isEqualToString:@"fork"]) {
 		currentRepository.isFork = [currentElementValue boolValue];
 	} else if ([elementName isEqualToString:@"private"]) {
 		currentRepository.isPrivate = [currentElementValue boolValue];
-	} else if ([elementName isEqualToString:@"forks"]) {
-		currentRepository.forks = [currentElementValue integerValue];
+	} else if ([elementName isEqualToString:@"replies"]) {
+		currentRepository.replies = [currentElementValue integerValue];
 	} else if ([elementName isEqualToString:@"watchers"]) {
 		currentRepository.watchers = [currentElementValue integerValue];
 	}

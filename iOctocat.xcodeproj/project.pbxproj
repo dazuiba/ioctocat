@@ -11,6 +11,9 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		229D8C4F14214865009D6A85 /* GHGravatar.m in Sources */ = {isa = PBXBuildFile; fileRef = 229D8C4E14214865009D6A85 /* GHGravatar.m */; };
+		229D8D1114215B12009D6A85 /* TrackCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 229D8D1014215B12009D6A85 /* TrackCell.xib */; };
+		229D8D1614215CD9009D6A85 /* TrackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 229D8D1514215CD9009D6A85 /* TrackCell.m */; };
 		6F0AEFB7100CAAE500FB323E /* Networks.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F0AEFB6100CAAE500FB323E /* Networks.xib */; };
 		6F0AEFBE100CF5DB00FB323E /* IssueFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0AEFBC100CF5DB00FB323E /* IssueFormController.m */; };
 		6F0AEFC1100CF61500FB323E /* IssueForm.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F0AEFC0100CF61500FB323E /* IssueForm.xib */; };
@@ -189,6 +192,11 @@
 		1D3623250D0F684500981E51 /* iOctocat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOctocat.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* iOctocat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOctocat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		229D8C4D14214865009D6A85 /* GHGravatar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHGravatar.h; sourceTree = "<group>"; };
+		229D8C4E14214865009D6A85 /* GHGravatar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHGravatar.m; sourceTree = "<group>"; };
+		229D8D1014215B12009D6A85 /* TrackCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackCell.xib; sourceTree = "<group>"; };
+		229D8D1414215CD9009D6A85 /* TrackCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackCell.h; sourceTree = "<group>"; };
+		229D8D1514215CD9009D6A85 /* TrackCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackCell.m; sourceTree = "<group>"; };
 		22CE69BF12B7D0E900C92FC8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = iphoneos/System/Library/Frameworks/CFNetwork.framework; sourceTree = "<group>"; };
 		28A0AAE50D9B0CCF005BE974 /* iOctocat_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOctocat_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -477,6 +485,8 @@
 				6F1DC4410F7E5A7E00FCD26D /* Domain */,
 				6F1DC4A30F7E5D2200FCD26D /* Controller */,
 				6F1DC52B0F7E725500FCD26D /* View */,
+				229D8C4D14214865009D6A85 /* GHGravatar.h */,
+				229D8C4E14214865009D6A85 /* GHGravatar.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -657,6 +667,8 @@
 				6FF09E64111589D600925109 /* FilesCell.m */,
 				6FE7D1BC115622D1004B4D68 /* CommentCell.h */,
 				6FE7D1BD115622D1004B4D68 /* CommentCell.m */,
+				229D8D1414215CD9009D6A85 /* TrackCell.h */,
+				229D8D1514215CD9009D6A85 /* TrackCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -899,6 +911,7 @@
 				6F74DD880FA76CCA00FD90AB /* FeedEntryCell.xib */,
 				6FA92B4D0FACD7ED001B1D1D /* IssueCell.xib */,
 				6FE7D1C911562498004B4D68 /* CommentCell.xib */,
+				229D8D1014215B12009D6A85 /* TrackCell.xib */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -1063,6 +1076,7 @@
 				6FB7583312081E1B0025A18B /* IconOctocat@2x.png in Resources */,
 				6F8E7DF4123C0E8B007E93E6 /* pull_request.png in Resources */,
 				6F15FAA4123E3EE600E56F92 /* download.png in Resources */,
+				229D8D1114215B12009D6A85 /* TrackCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1149,6 +1163,8 @@
 				6F6F176811E316C5008B319F /* ASIHTTPRequest.m in Sources */,
 				6F6F176911E316C5008B319F /* ASIInputStream.m in Sources */,
 				6F6F176A11E316C5008B319F /* ASINetworkQueue.m in Sources */,
+				229D8C4F14214865009D6A85 /* GHGravatar.m in Sources */,
+				229D8D1614215CD9009D6A85 /* TrackCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

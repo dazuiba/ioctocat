@@ -1,11 +1,12 @@
 #import <Foundation/Foundation.h>
 #import "GHResourcesParserDelegate.h"
 #import "GHResource.h"
+#import "iOctocat.h"
 
 
 @interface GHSearch : GHResource {
 	NSArray *results;
-  @private
+	@private
 	NSString *urlFormat;
 	NSString *searchTerm;
 	GHResourcesParserDelegate *parserDelegate;
@@ -14,8 +15,8 @@
 @property(nonatomic,retain)NSArray *results;
 @property(nonatomic,retain)NSString *searchTerm;
 
-+ (id)searchWithURLFormat:(NSString *)theFormat andParserDelegateClass:(Class)theDelegateClass;
-- (id)initWithURLFormat:(NSString *)theFormat andParserDelegateClass:(Class)theDelegateClass;
++ (id)searchWithURLFormat:(NSString *)theUrlFormat;
+- (id)initWithURLFormat:(NSString *)theUrlFormat;
 
 @end
 

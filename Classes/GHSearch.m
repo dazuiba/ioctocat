@@ -6,14 +6,13 @@
 @synthesize results;
 @synthesize searchTerm;
 
-+ (id)searchWithURLFormat:(NSString *)theFormat andParserDelegateClass:(Class)theDelegateClass {
-	return [[[[self class] alloc] initWithURLFormat:theFormat andParserDelegateClass:theDelegateClass] autorelease];
++ (id)searchWithURLFormat:(NSString *)theFormat {
+	return [[[[self class] alloc] initWithURLFormat:theFormat] autorelease];
 }
 
-- (id)initWithURLFormat:(NSString *)theFormat andParserDelegateClass:(Class)theDelegateClass {
+- (id)initWithURLFormat:(NSString *)theFormat{
 	[super init];
 	urlFormat = [theFormat retain];
-	parserDelegate = [(GHResourcesParserDelegate *)[theDelegateClass alloc] initWithTarget:self andSelector:@selector(parsingJSON:)];
 	return self;
 }
 
@@ -30,36 +29,30 @@
 }
 
 - (NSURL *)resourceURL {
-	// Dynamic resourceURL, because it depends on the
-	// searchTerm which isn't always available in advance
 	NSString *encodedSearchTerm = [searchTerm stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	NSString *urlString = [NSString stringWithFormat:urlFormat, encodedSearchTerm];
-	NSURL *url = [NSURL URLWithString:urlString];
-	return url;
-}
-
-- (void)parseData:(NSData *)data {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
-	[parser setDelegate:parserDelegate];
-	[parser setShouldProcessNamespaces:NO];
-	[parser setShouldReportNamespacePrefixes:NO];
-	[parser setShouldResolveExternalEntities:NO];
-	[parser parse];
-	[parser release];
-	[pool release];
+	return [iOctocat urlWithFormat:urlFormat, encodedSearchTerm];;
 }
 
 - (void)parsingJSON:(id)theResult {
-	if ([theResult isKindOfClass:[NSError class]]) {
-		self.error = theResult;
-		self.loadingStatus = GHResourceStatusNotLoaded;
-	} else {
-		// Mark the results as not loaded, because the search doesn't contain all attributes
-		for (GHResource *res in theResult) res.loadingStatus = GHResourceStatusNotLoaded;
-		self.results = theResult;
+		NSMutableArray *resources = [NSMutableArray array];
+		if([theResult objectForKey:@"users"]!=NULL){
+			
+		  for (NSString *login in [theResult objectForKey:@"users"]) {
+				GHUser *theUser = [[iOctocat sharedInstance] userWithLogin:login];
+	      [resources addObject:theUser];
+	    }
+		
+		}else	if([theResult objectForKey:@"tracks"]!=NULL){
+			for (NSDictionary *tracks in [theResult objectForKey:@"tracks"]) {
+				GHRepository *theRepository = [GHRepository repositoryWithDict:tracks];
+		    [resources addObject:theRepository];
+		  }
+
+		}
+		for (GHResource *res in resources) 
+			res.loadingStatus = GHResourceStatusNotLoaded;
+		self.results = resources;
 		self.loadingStatus = GHResourceStatusLoaded;
-	}
 }
 
 @end

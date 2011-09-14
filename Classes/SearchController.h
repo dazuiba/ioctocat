@@ -3,6 +3,7 @@
 #import "OverlayController.h"
 #import "RepositoryCell.h"
 #import "UserCell.h"
+#import "TrackCell.h"
 
 
 @interface SearchController : UITableViewController {
@@ -11,6 +12,8 @@
 	IBOutlet UISegmentedControl *searchControl;
 	IBOutlet UITableViewCell *loadingCell;
 	IBOutlet UITableViewCell *noResultsCell;
+	IBOutlet TrackCell *trackCell;
+  
 	UserCell *userCell;
 	OverlayController *overlayController;
 	NSArray *searches;

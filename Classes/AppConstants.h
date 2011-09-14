@@ -1,4 +1,5 @@
 // Messages
+#define kAppErrorDomain @"Iq84FMErrorDomain"
 
 #define kMsgLoginFailedExplain @"您输入的用户名或密码有误，请重试。"
 #define kMsgLoginFailedTitle @"验证失败"
@@ -18,11 +19,25 @@
 #define kIssueCellIdentifier @"IssueCell"
 #define kUserCellIdentifier @"UserCell"
 #define kNetworkCellIdentifier @"NetworkCell"
+#define kProfileStatCellIdentifier @"ProfileStatCell"
 #define kBranchCellIdentifier @"BranchCell"
 #define kCommentCellIdentifier @"CommentCell"
 
 // URLs
+#define kURLFormat @"http://localhost:3000/api/v1%@"
 #define kUserFormat @"/user/show/?login=%@"
+#define kInboxFormat @"/private.atom?box=%@"
+#define kUserFollowingFormat @"/user/following?login=%@"
+#define kUserFollowersFormat @"/user/followers?login=%@"
+
+#define kUserSearchFormat @"/user/search?q=%@"
+#define kRepoSearchFormat @"/ml/search?q=%@"
+#define kRepoXMLFormat @"/broadcast/show?id=%@"
+
+
+
+
+
 #define kAuthenticateUserXMLFormat @"/user/show/%@?login=%@&token=%@"
 
 
@@ -30,17 +45,11 @@
 #define kRepositoryGithubFormat @"http://localhost:3000/%@/%@/tree/master"
 #define kIssueGithubFormat @"http://localhost:3000/%@/%@/issues#issue/%d"
 #define kUserFeedFormat @"http://localhost:3000/%@.atom"
-#define kNewsFeedFormat @"http://localhost:3000/%@.private.atom?token=%@"
-#define kActivityFeedFormat @"http://localhost:3000/%@.private.actor.atom?token=%@"
 #define kRepoFeedFormat @"http://localhost:3000/feeds/%@/commits/%@/%@"
 #define kPrivateRepoFeedFormat @"http://localhost:3000/feeds/%@/commits/%@/%@"
 #define kUserReposFormat @"http://localhost:3000/api/v2/xml/repos/show/%@"
 #define kUserWatchedReposFormat @"http://localhost:3000/api/v2/xml/repos/watched/%@"
-#define kUserSearchFormat @"http://localhost:3000/api/v2/xml/user/search/%@"
-#define kUserFollowingFormat @"http://localhost:3000/api/v2/json/user/show/%@/following"
-#define kUserFollowersFormat @"http://localhost:3000/api/v2/json/user/show/%@/followers"
-#define kRepoXMLFormat @"http://localhost:3000/api/v2/xml/repos/show/%@/%@"
-#define kRepoSearchFormat @"http://localhost:3000/api/v2/xml/repos/search/%@"
+
 #define kPublicRepoCommitsJSONFormat @"http://localhost:3000/api/v2/json/commits/list/%@/%@/%@"
 #define kPublicRepoCommitJSONFormat @"http://localhost:3000/api/v2/json/commits/show/%@/%@/%@"
 #define kPrivateRepoCommitsJSONFormat @"http://localhost:3000/api/v2/json/commits/list/%@/%@/%@"
@@ -56,7 +65,6 @@
 #define kEditIssueXMLFormat @"http://localhost:3000/api/v2/xml/issues/edit/%@/%@/%d"
 #define kIssueCommentsJSONFormat @"http://localhost:3000/api/v2/json/issues/comments/%@/%@/%d"
 #define kIssueCommentJSONFormat @"http://localhost:3000/api/v2/json/issues/comment/%@/%@/%d"
-#define KUserFollowingJSONFormat @"http://localhost:3000/api/v2/json/user/show/%@/following"
 #define kNetworksFormat @"http://localhost:3000/api/v2/xml/repos/show/%@/%@/network"
 #define kFollowUserFormat @"http://localhost:3000/api/v2/json/user/%@/%@"
 #define kWatchRepoFormat @"http://localhost:3000/api/v2/json/repos/%@/%@/%@"

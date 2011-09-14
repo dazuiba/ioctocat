@@ -20,36 +20,23 @@
 - (void)dealloc {
 	[user release];
 	[users release];
-    [super dealloc];
+  [super dealloc];
 }
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"<GHUsers user:'%@' resourceURL:'%@'>", user, resourceURL];
 }
-
-- (void)parseData:(NSData *)data {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSError *parseError = nil;
-    NSDictionary *usersDict = [[CJSONDeserializer deserializer] deserialize:data error:&parseError];
-    NSMutableArray *resources = [NSMutableArray array];
-    for (NSString *login in [usersDict objectForKey:@"users"]) {
-		GHUser *theUser = [[iOctocat sharedInstance] userWithLogin:login];
-        [resources addObject:theUser];
-    }
-    id res = parseError ? (id)parseError : (id)resources;
-	[self performSelectorOnMainThread:@selector(parsingJSON:) withObject:res waitUntilDone:YES];
-    [pool release];
-}
+ 
 
 - (void)parsingJSON:(id)theResult {
-	if ([theResult isKindOfClass:[NSError class]]) {
-		self.error = theResult;
-		self.loadingStatus = GHResourceStatusNotLoaded;
-	} else {
-		[theResult sortUsingSelector:@selector(compareByName:)];
-		self.users = theResult;
-		self.loadingStatus = GHResourceStatusLoaded;
-	}
+		// [theResult sortUsingSelector:@selector(compareByName:)];
+	 NSMutableArray *resources = [NSMutableArray array];
+	 for (NSString *login in [theResult objectForKey:@"users"]) {
+			GHUser *theUser = [[iOctocat sharedInstance] userWithLogin:login];
+      [resources addObject:theUser];
+   }
+	 self.users = resources;
+	 self.loadingStatus = GHResourceStatusLoaded;
 }
 
 @end

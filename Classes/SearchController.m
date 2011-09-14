@@ -3,6 +3,7 @@
 #import "GHReposParserDelegate.h"
 #import "RepositoryController.h"
 #import "UserController.h"
+#import "TrackCell.h"
 
 
 @implementation SearchController
@@ -14,8 +15,8 @@
 	searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
 	overlayController = [[OverlayController alloc] initWithTarget:self andSelector:@selector(quitSearching:)];
 	overlayController.view.frame = CGRectMake(0, self.navigationController.navigationBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
-	GHSearch *userSearch = [GHSearch searchWithURLFormat:kUserSearchFormat andParserDelegateClass:[GHUsersParserDelegate class]];
-	GHSearch *repoSearch = [GHSearch searchWithURLFormat:kRepoSearchFormat andParserDelegateClass:[GHReposParserDelegate class]];
+	GHSearch *userSearch = [GHSearch searchWithURLFormat:kUserSearchFormat];
+	GHSearch *repoSearch = [GHSearch searchWithURLFormat:kRepoSearchFormat];
 	searches = [[NSArray alloc] initWithObjects:userSearch, repoSearch, nil];
 	for (GHSearch *search in searches) [search addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 }
@@ -23,6 +24,7 @@
 - (void)dealloc {
 	for (GHSearch *search in searches) [search removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[userCell release];
+	[trackCell release];
 	[searches release];
 	[overlayController release];
 	[searchBar release];
@@ -89,9 +91,12 @@
     if (self.currentSearch.results.count == 0) return noResultsCell;
 	id object = [self.currentSearch.results objectAtIndex:indexPath.row];
 	if ([object isKindOfClass:[GHRepository class]]) {
-		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
-		if (cell == nil) cell = [[[RepositoryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kRepositoryCellIdentifier] autorelease];
-		cell.repository = (GHRepository *)object;
+		TrackCell *cell = (TrackCell *)[tableView dequeueReusableCellWithIdentifier:@"TrackCell"];
+		if (cell == nil) {
+			[[NSBundle mainBundle] loadNibNamed:@"TrackCell" owner:self options:nil];
+			cell = trackCell;
+		}
+		cell.track = (GHRepository *)object;
 		return cell;
 	} else if ([object isKindOfClass:[GHUser class]]) {
 		UserCell *cell = (UserCell *)[tableView dequeueReusableCellWithIdentifier:kUserCellIdentifier];
@@ -103,6 +108,19 @@
 		return cell;
 	}
     return nil;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	CGFloat result = 44.0;
+	if (!self.currentSearch.isLoaded) return result;
+	if (self.currentSearch.results.count == 0) return result;
+	id object = [self.currentSearch.results objectAtIndex:0];
+	if ([object isKindOfClass:[GHRepository class]]) {
+		return 81.0;
+	}else {
+		return result;
+	}
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

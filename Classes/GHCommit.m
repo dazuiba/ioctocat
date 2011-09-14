@@ -97,10 +97,10 @@
 
 - (void)parseData:(NSData *)data {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSError *parseError = nil;
+		NSError *parseError = nil;
     NSDictionary *dict = [[CJSONDeserializer deserializer] deserialize:data error:&parseError];
     id res = parseError ? (id)parseError : (id)[dict objectForKey:@"commit"];
-	[self performSelectorOnMainThread:@selector(parsingJSON:) withObject:res waitUntilDone:YES];
+		[self performSelectorOnMainThread:@selector(parsingJSON:) withObject:res waitUntilDone:YES];
     [pool release];
 }
 
