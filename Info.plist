@@ -6,17 +6,17 @@
 	<string>English</string>
 	<key>CFBundleDisplayName</key>
 	<string>${PRODUCT_NAME}</string>
+	<key>CFBundleDocumentTypes</key>
+	<array/>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
-	<key>CFBundleIconFile</key>
-	<string>${ICON_NAME}.png</string>
 	<key>CFBundleIconFiles</key>
 	<array>
-		<string>${ICON_NAME}.png</string>
-		<string>${ICON_NAME}@2x.png</string>
+		<string>icon@2x.png</string>
+		<string>icon.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
-	<string>de.dennisbloete.${PRODUCT_NAME:identifier}</string>
+	<string>fm.1q84.sam</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -44,5 +44,13 @@
 	<string>MainWindow</string>
 	<key>SBUsesNetwork</key>
 	<true/>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UTExportedTypeDeclarations</key>
+	<array/>
+	<key>UTImportedTypeDeclarations</key>
+	<array/>
 </dict>
 </plist>
