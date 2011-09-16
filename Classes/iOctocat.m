@@ -2,8 +2,6 @@
 #import "MyFeedsController.h"
 #import "SynthesizeSingleton.h"
 #import "NSString+Extensions.h"
-
-
 @interface iOctocat ()
 - (void)postLaunch;
 - (void)presentLogin;
@@ -179,6 +177,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	return (LoginController *)tabBarController.modalViewController;
 }
 
+- (void)presentPlayer:(NSString *)channel{
+//	if(channel == NULL){
+//		channel = @"1q84";
+//	}
+//  MDAudioPlayerController *player = [MDAudioPlayerController playChannel:channel];
+//	[tabBarController presentModalViewController:player animated:YES];
+//	[player release];
+}
 - (void)presentLogin {
 	if (self.loginController) return;
 	LoginController *loginController = [[LoginController alloc] initWithTarget:self andSelector:@selector(authenticate)];

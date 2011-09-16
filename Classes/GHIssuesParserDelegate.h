@@ -1,14 +1,14 @@
 #import <Foundation/Foundation.h>
 #import "GHResourcesParserDelegate.h"
-#import "GHIssue.h"
+#import "GHBroadcast.h"
 
 
-@interface GHIssuesParserDelegate : GHResourcesParserDelegate {
-	GHRepository *repository;
+@interface GHChannelParserDelegate : GHResourcesParserDelegate {
+//	GHRepository *repository;
   @private
-    GHIssue *currentIssue;
+    GHBroadcast *currentIssue;
 }
 
-@property(nonatomic,retain)GHRepository *repository;
+//@property(nonatomic,retain)GHRepository *repository;
 
 @end

@@ -81,7 +81,7 @@
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<string key="IBUIText">There are no issues</string>
+								<string key="IBUIText">There are no channel</string>
 								<object class="NSFont" key="IBUIFont" id="640480640">
 									<string key="NSName">Helvetica</string>
 									<double key="NSSize">15</double>
@@ -137,7 +137,7 @@
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<string key="IBUIText">Loading issues...</string>
+								<string key="IBUIText">Loading channel...</string>
 								<reference key="IBUIFont" ref="640480640"/>
 								<object class="NSColor" key="IBUITextColor">
 									<int key="NSColorSpace">1</int>
@@ -266,7 +266,7 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">issuesControl</string>
+						<string key="label">channelControl</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="1002590521"/>
 					</object>
@@ -544,7 +544,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>addButton</string>
 							<string>issueCell</string>
-							<string>issuesControl</string>
+							<string>channelControl</string>
 							<string>loadingIssuesCell</string>
 							<string>noIssuesCell</string>
 						</object>
@@ -563,7 +563,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>addButton</string>
 							<string>issueCell</string>
-							<string>issuesControl</string>
+							<string>channelControl</string>
 							<string>loadingIssuesCell</string>
 							<string>noIssuesCell</string>
 						</object>
@@ -578,7 +578,7 @@
 								<string key="candidateClassName">IssueCell</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">issuesControl</string>
+								<string key="name">channelControl</string>
 								<string key="candidateClassName">UISegmentedControl</string>
 							</object>
 							<object class="IBToOneOutletInfo">

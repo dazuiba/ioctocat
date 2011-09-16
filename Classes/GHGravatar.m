@@ -13,9 +13,20 @@
 	[super init];
 	gravatarLoader = [[GravatarLoader alloc] initWithTarget:self andHandle:@selector(loadedGravatar:)];
 	return self;
-}
-#pragma mark Gravatar
+}                                    
 
+- (void)setByDict:(NSDictionary *)dict{     
+	[self setAvatarAndLoad:[dict objectForKey:@"avatar"]];
+}
+
+
+#pragma mark Gravatar
+- (void)setAvatarAndLoad:(NSString *)urlString{  
+	if(urlString){
+		self.avatarPath = urlString;                                 
+	  [self.gravatarLoader loadURL:self.avatarPath];     
+	} 
+}
 - (void)loadedGravatar:(UIImage *)theImage {
 	self.gravatar = theImage;
 	[UIImagePNGRepresentation(theImage) writeToFile:self.cachedGravatarPath atomically:YES];
@@ -28,6 +39,13 @@
 	CGFloat deviceScale = ([mainScreen respondsToSelector:@selector(scale)]) ? [mainScreen scale] : 1.0;
 	NSInteger size = kImageGravatarMaxLogicalSize * MAX(deviceScale, 1.0);
 	return size;
+}                                                         
+
+- (void)dealloc {
+	[self.avatarPath release];       
+	[self.gravatar release];
+	[self.gravatarLoader release];
+	[self.gravatar release];            
 }
 
 - (NSString *)cachedGravatarPath {

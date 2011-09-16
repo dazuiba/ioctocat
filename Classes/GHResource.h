@@ -17,7 +17,8 @@ typedef enum {
 
 @protocol GHResourceDelegate;
 
-@interface GHResource : NSObject {
+@interface GHResource : NSObject {     
+	NSUInteger entryID;
 	GHResourceLoadingStatus loadingStatus;
 	GHResourceSavingStatus savingStatus;
 	NSMutableSet *delegates;
@@ -26,6 +27,7 @@ typedef enum {
 	NSDictionary *result;
 }
 
+@property(nonatomic)NSUInteger entryID;
 @property(nonatomic,assign)GHResourceLoadingStatus loadingStatus;
 @property(nonatomic,assign)GHResourceSavingStatus savingStatus;
 @property(nonatomic,retain)NSURL *resourceURL;
@@ -40,10 +42,13 @@ typedef enum {
 
 + (ASIFormDataRequest *)authenticatedRequestForURL:(NSURL *)theURL;
 
++ (id)resourceWithDict:(NSDictionary *) dict;
++ (id)resource;
 + (id)resourceWithURL:(NSURL *)theURL;
 - (id)initWithURL:(NSURL *)theURL;
 - (void)loadData;
 - (void)saveValues:(NSDictionary *)theValues withURL:(NSURL *)theURL;
+- (void)setByDict:(NSDictionary *)dict;
 
 @end
 

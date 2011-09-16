@@ -729,7 +729,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAACAgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">issuesCell</string>
+						<string key="label">channelCell</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="422753513"/>
 					</object>
@@ -1104,7 +1104,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAACAgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<string>descriptionCell</string>
 							<string>forkLabel</string>
 							<string>iconView</string>
-							<string>issuesCell</string>
+							<string>channelCell</string>
 							<string>loadingCell</string>
 							<string>nameLabel</string>
 							<string>networkCell</string>
@@ -1139,7 +1139,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAACAgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<string>descriptionCell</string>
 							<string>forkLabel</string>
 							<string>iconView</string>
-							<string>issuesCell</string>
+							<string>channelCell</string>
 							<string>loadingCell</string>
 							<string>nameLabel</string>
 							<string>networkCell</string>
@@ -1165,7 +1165,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAACAgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 								<string key="candidateClassName">UIImageView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">issuesCell</string>
+								<string key="name">channelCell</string>
 								<string key="candidateClassName">UITableViewCell</string>
 							</object>
 							<object class="IBToOneOutletInfo">

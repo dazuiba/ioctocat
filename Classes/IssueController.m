@@ -6,7 +6,7 @@
 #import "CommentCell.h"
 #import "IssuesController.h"
 #import "IssueFormController.h"
-#import "GHIssueComments.h"
+#import "GHBroadcastComments.h"
 #import "NSDate+Nibware.h"
 #import "NSString+Extensions.h"
 
@@ -18,7 +18,7 @@
 
 @implementation IssueController
 
-- (id)initWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController {    
+- (id)initWithIssue:(GHBroadcast *)theIssue andIssuesController:(IssuesController *)theController {    
     [super initWithNibName:@"Issue" bundle:nil];
 	issue = [theIssue retain];
 	listController = [theController retain];
@@ -113,7 +113,7 @@
 
 - (void)displayIssue {
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
-    NSString *icon = [NSString stringWithFormat:@"issues_%@.png", issue.state];
+    NSString *icon = [NSString stringWithFormat:@"channel_%@.png", issue.state];
 	iconView.image = [UIImage imageNamed:icon];
 	titleLabel.text = issue.title;
     voteLabel.text = [NSString stringWithFormat:@"%d votes", issue.votes];
@@ -186,7 +186,7 @@
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 		cell = commentCell;
 	}
-	GHIssueComment *comment = [issue.comments.comments objectAtIndex:indexPath.row];
+	GHBroadcastComment *comment = [issue.comments.comments objectAtIndex:indexPath.row];
 	[cell setComment:comment];
 	return cell;
 }

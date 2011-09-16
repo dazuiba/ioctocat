@@ -1,13 +1,13 @@
 #import <UIKit/UIKit.h>
-#import "GHIssues.h"
+#import "GHChannel.h"
 #import "IssueCell.h"
-#import "GHRepository.h"
+//#import "GHRepository.h"
 
 
 @interface IssuesController : UITableViewController {
-    GHRepository *repository;
+//    GHRepository *repository;
   @private
-	IBOutlet UISegmentedControl *issuesControl;
+	IBOutlet UISegmentedControl *channelControl;
 	IBOutlet UITableViewCell *loadingIssuesCell;
 	IBOutlet UITableViewCell *noIssuesCell;
 	IBOutlet UIBarButtonItem *addButton;
@@ -16,10 +16,10 @@
 	NSUInteger loadCounter;
 }
 
-@property(nonatomic,readonly) GHIssues *currentIssues;
+//@property(nonatomic,readonly) GHChannel *currentIssues;
 @property(nonatomic,retain) GHRepository *repository;
 
-- (id)initWithRepository:(GHRepository *)theRepository;
+//- (id)initWithRepository:(GHRepository *)theRepository;
 - (void)reloadIssues;
 - (IBAction)switchChanged:(id)sender;
 - (IBAction)createNewIssue:(id)sender;

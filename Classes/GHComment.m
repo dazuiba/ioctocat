@@ -1,11 +1,11 @@
-#import "GHIssueComment.h"
-#import "GHIssue.h"
+#import "GHBroadcastComment.h"
+#import "GHBroadcast.h"
 #import "GHRepository.h"
 #import "iOctocat.h"
 #import "CJSONDeserializer.h"
 
 
-@implementation GHIssueComment
+@implementation GHBroadcastComment
 
 @synthesize issue;
 @synthesize user;
@@ -14,7 +14,7 @@
 @synthesize created;
 @synthesize updated;
 
-- (id)initWithIssue:(GHIssue *)theIssue andDictionary:(NSDictionary *)theDict {
+- (id)initWithIssue:(GHBroadcast *)theIssue andDictionary:(NSDictionary *)theDict {
 	[self initWithIssue:theIssue];	
 	
 	// Dates
@@ -33,7 +33,7 @@
 	return self;
 }
 
-- (id)initWithIssue:(GHIssue *)theIssue {
+- (id)initWithIssue:(GHBroadcast *)theIssue {
 	[super init];
 	self.issue = theIssue;
 	return self;

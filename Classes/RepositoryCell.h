@@ -1,12 +1,11 @@
 #import <UIKit/UIKit.h>
-#import "GHRepository.h"
 
 
 @interface RepositoryCell : UITableViewCell {
-	GHRepository *repository;
+//	GHRepository *repository;
 }
 
-@property(nonatomic,retain)GHRepository *repository;
+//@property(nonatomic,retain)GHRepository *repository;
 
 - (void)hideOwner;
 

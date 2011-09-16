@@ -1,20 +1,20 @@
-#import "GHIssueComments.h"
-#import "GHIssueComment.h"
-#import "GHIssue.h"
+#import "GHComments.h"
+#import "GHComment.h"
+#import "GHBroadcast.h"
 #import "ASIFormDataRequest.h"
 #import "CJSONDeserializer.h"
 
 
-@implementation GHIssueComments
+@implementation GHComments
 
 @synthesize comments;
 @synthesize issue;
 
-+ (id)commentsWithIssue:(GHIssue *)theIssue {
++ (id)commentsWithIssue:(GHBroadcast *)theIssue {
 	return [[[[self class] alloc] initWithIssue:theIssue] autorelease];
 }
 
-- (id)initWithIssue:(GHIssue *)theIssue {
+- (id)initWithIssue:(GHBroadcast *)theIssue {
 	[super init];
 	self.issue = theIssue;
 	self.comments = [NSMutableArray array];
@@ -35,7 +35,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHIssueComments issue:'%@'>", issue];
+    return [NSString stringWithFormat:@"<GHBroadcastComments issue:'%@'>", issue];
 }
 
 - (void)parseData:(NSData *)data {
@@ -44,7 +44,7 @@
     NSDictionary *resultDict = [[CJSONDeserializer deserializer] deserialize:data error:&parseError];
     NSMutableArray *resources = [NSMutableArray array];
 	for (NSDictionary *dict in [resultDict objectForKey:@"comments"]) {
-		GHIssueComment *comment = [[GHIssueComment alloc] initWithIssue:issue andDictionary:dict];
+		GHBroadcastComment *comment = [[GHBroadcastComment alloc] initWithIssue:issue andDictionary:dict];
 		[resources addObject:comment];
 		[comment release];
 	}

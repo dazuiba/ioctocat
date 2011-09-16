@@ -5,7 +5,7 @@
 
 @implementation IssueFormController
 
-- (id)initWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController {    
+- (id)initWithIssue:(GHBroadcast *)theIssue andIssuesController:(IssuesController *)theController {    
     [super initWithNibName:@"IssueForm" bundle:nil];
 	issue = [theIssue retain];
 	listController = [theController retain];

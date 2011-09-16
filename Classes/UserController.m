@@ -2,7 +2,6 @@
 #import "RepositoryController.h"
 #import "WebController.h"
 #import "GHUser.h"
-#import "GHRepository.h"
 #import "LabeledCell.h"
 #import "RepositoryCell.h"
 #import "GravatarLoader.h"
@@ -23,9 +22,9 @@
 @synthesize user;
 
 - (id)initWithUser:(GHUser *)theUser {
-    [super initWithNibName:@"User" bundle:nil];
+  [super initWithNibName:@"User" bundle:nil];
 	self.user = theUser;
-    return self;
+  return self;
 }
 
 - (void)viewDidLoad {
@@ -37,7 +36,7 @@
 	(user.isLoaded) ? [self displayUser] : [user loadUser];
 	self.navigationItem.title = user.login;
 	self.tableView.tableHeaderView = tableHeaderView;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
+  //self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:[iOctocat sharedInstance] action:@selector(presentPlayer:nil)];
 }
 
 - (void)dealloc {

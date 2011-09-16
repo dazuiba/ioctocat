@@ -17,18 +17,47 @@
 
 @implementation GHResource
 
+@synthesize entryID;
 @synthesize loadingStatus;
 @synthesize savingStatus;
 @synthesize resourceURL;
 @synthesize error;
 @synthesize result;
 
++ (id)resource{
+	return [[[[self class] alloc] init] autorelease];
+}
+
++ (id)resourceWithDict:(NSDictionary *) dict {
+	id *result = [self resource];	 
+	[result setByDict:dict];
+	return result;
+	
+}
 + (id)resourceWithURL:(NSURL *)theURL {
 	return [[[[self class] alloc] initWithURL:theURL] autorelease];
+}                       
+                                
+- (void)setByDict:(NSDictionary *)dict{        
+	self.entryID = [[dict objectForKey:@"id"] integerValue];
+}
+
+
+- (id)init {
+	[super init];
+	[self addObserver:self forKeyPath:kUserLoginKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	return self;
+}                                
+
+
+- (id)initWithDict:(NSDictionary *)dict{
+	[self init];
+	[self setByDict:dict];
+	return self;
 }
 
 - (id)initWithURL:(NSURL *)theURL {
-	[super init];
+	[self init];
 	self.resourceURL = theURL;
 	self.loadingStatus = GHResourceStatusNotLoaded;
 	self.savingStatus = GHResourceStatusNotSaved;
@@ -42,6 +71,7 @@
 	[result release], result = nil;
 	[super dealloc];
 }
+        
 
 #pragma mark Request
 
@@ -97,7 +127,7 @@
 		}else{
 			[self performSelectorOnMainThread:@selector(parsingJSON:) withObject:[dict objectForKey:@"body"] waitUntilDone:YES];
 		}
-	  [pool release];	
+	 [pool release];	
 }
 
 - (void)parsingJSON:(id)body {	
@@ -151,6 +181,16 @@
 - (void)parsingSaveFinished:(id)theResult {
 	[NSException raise:@"GHResourceAbstractMethodException" format:@"The subclass of GHResource must implement this method"];
 }
+
+
+#pragma mark Util methods
+- (NSDate *)parseDate:(NSString *)dateString{
+	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+	dateFormatter.dateFormat = @"yyyy/MM/dd HH:mm:ss Z";          
+	NSDate *result = [dateFormatter dateFromString:dateString];        
+	[dateFormatter release];
+	return result;
+}                              
 
 #pragma mark Convenience Accessors
 

@@ -1,4 +1,5 @@
 #import "GHSearch.h"
+#import "GHTrack.h"
 
 
 @implementation GHSearch
@@ -17,7 +18,6 @@
 }
 
 - (void)dealloc {
-	[parserDelegate release], parserDelegate = nil;
 	[searchTerm release], searchTerm = nil;
 	[urlFormat release], urlFormat = nil;
 	[results release], results = nil;
@@ -35,19 +35,18 @@
 
 - (void)parsingJSON:(id)theResult {
 		NSMutableArray *resources = [NSMutableArray array];
-		if([theResult objectForKey:@"users"]!=NULL){
-			
-		  for (NSString *login in [theResult objectForKey:@"users"]) {
+		if([theResult objectForKey:@"users"]!=NULL){		 
+			for (NSString *login in [theResult objectForKey:@"users"]) {
 				GHUser *theUser = [[iOctocat sharedInstance] userWithLogin:login];
 	      [resources addObject:theUser];
 	    }
 		
 		}else	if([theResult objectForKey:@"tracks"]!=NULL){
-			for (NSDictionary *tracks in [theResult objectForKey:@"tracks"]) {
-				GHRepository *theRepository = [GHRepository repositoryWithDict:tracks];
-		    [resources addObject:theRepository];
-		  }
-
+			for (NSDictionary *dict in [theResult objectForKey:@"tracks"]) {
+				GHTrack *track = [[GHTrack alloc] initWithDict:dict];
+		    [resources addObject:track];
+				[track release];
+		  }               
 		}
 		for (GHResource *res in resources) 
 			res.loadingStatus = GHResourceStatusNotLoaded;

@@ -1,5 +1,5 @@
 #import "TrackCell.h"
-#import "GHRepository.h"
+#import "GHTrack.h"
 
 
 @implementation TrackCell
@@ -14,14 +14,14 @@
     [super dealloc];
 }
 
-- (void)setTrack:(GHRepository *)aTrack {
+- (void)setTrack:(GHTrack *)aTrack {
 	[aTrack retain];
 	[track release];
 	track = aTrack;
 	userLabel.text = track.name;
 	[track addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
     gravatarView.image = track.gravatar;
-	if (!gravatarView.image && !track.isLoaded) [track loadTrack];
+	if (!gravatarView.image && !track.isLoaded) [track loadData];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

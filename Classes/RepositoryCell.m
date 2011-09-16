@@ -14,19 +14,19 @@
 }
 
 - (void)dealloc {
-	[repository release];
+//	[repository release];
     [super dealloc];
 }
 
-- (void)setRepository:(GHRepository *)theRepository {
-	[theRepository retain];
-	[repository release];
-	repository = theRepository;
-	self.textLabel.text = repository.name;
-	[repository addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-//    gravatarView.image = user.gravatar;
-//	if (!gravatarView.image && !user.isLoaded) [user loadUser];
-}
+//- (void)setRepository:(GHRepository *)theRepository {
+//	[theRepository retain];
+//	[repository release];
+//	repository = theRepository;
+//	self.textLabel.text = repository.name;
+//	[repository addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
+////    gravatarView.image = user.gravatar;
+////	if (!gravatarView.image && !user.isLoaded) [user loadUser];
+//}
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 //	if ([keyPath isEqualToString:kUserGravatarKeyPath] && repository.gravatar) {

@@ -1,5 +1,5 @@
 #import "IssueCell.h"
-#import "GHIssue.h"
+#import "GHBroadcast.h"
 #import "GHUser.h"
 #import "NSDate+Nibware.h"
 
@@ -18,7 +18,7 @@
     [super dealloc];
 }
 
-- (void)setIssue:(GHIssue *)anIssue {
+- (void)setIssue:(GHBroadcast *)anIssue {
 	[issue release];
 	issue = [anIssue retain];
 	titleLabel.text = issue.title;
@@ -26,7 +26,7 @@
     issueNumber.text = [NSString stringWithFormat:@"#%d", issue.num];
 	dateLabel.text = [NSString stringWithFormat:@"updated %@", [issue.updated prettyDate]];
 	// Icon
-	NSString *icon = [NSString stringWithFormat:@"issues_%@.png", issue.state];
+	NSString *icon = [NSString stringWithFormat:@"channel_%@.png", issue.state];
 	iconView.image = [UIImage imageNamed:icon];
 }
 

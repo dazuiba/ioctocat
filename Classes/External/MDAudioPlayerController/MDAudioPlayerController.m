@@ -8,6 +8,7 @@
 
 #import "MDAudioPlayerController.h"
 #import "MDAudioFile.h"
+#import "GHTrack.h"
 #import "MDAudioPlayerTableViewCell.h"
 
 @interface MDAudioPlayerController ()
@@ -20,7 +21,6 @@ static const CGFloat kDefaultReflectionFraction = 0.65;
 static const CGFloat kDefaultReflectionOpacity = 0.40;
 
 @synthesize soundFiles;
-@synthesize soundFilesPath;
 
 @synthesize player;
 @synthesize gradientLayer;
@@ -129,12 +129,18 @@ void interruptionListenerCallback (void *userData, UInt32 interruptionState)
 		volumeSlider.value = p.volume;
 }
 
++ (MDAudioPlayerController *)playTrack:(GHTrack *)track{   
+	NSMutableArray *tracks = [NSMutableArray array];  
+	[tracks addObject:track];	
+	[tracks release];
+  return [[MDAudioPlayerController alloc] initWithSoundFiles:tracks andSelectedIndex:0];
+}                                               
+
 - (MDAudioPlayerController *)initWithSoundFiles:(NSMutableArray *)songs atPath:(NSString *)path andSelectedIndex:(int)index
 {
 	if (self = [super init]) 
 	{
 		self.soundFiles = songs;
-		self.soundFilesPath = path;
 		selectedIndex = index;
 				
 		NSError *error = nil;
@@ -856,7 +862,6 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh)
 - (void)dealloc
 {
 	[soundFiles release], soundFiles = nil;
-	[soundFilesPath release], soundFiles = nil;
 	[player release], player = nil;
 	[gradientLayer release], gradientLayer = nil;
 	[playButton release], playButton = nil;

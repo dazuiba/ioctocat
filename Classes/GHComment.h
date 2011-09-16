@@ -2,10 +2,10 @@
 #import "GHResource.h"
 
 
-@class GHIssue, GHUser;
+@class GHBroadcast, GHUser;
 
-@interface GHIssueComment : GHResource {
-	GHIssue *issue;
+@interface GHBroadcastComment : GHResource {
+	GHBroadcast *issue;
 	GHUser *user;
 	NSUInteger commentID;
 	NSString *body;
@@ -13,15 +13,15 @@
 	NSDate *updated;
 }
 
-@property(nonatomic,retain)GHIssue *issue;
+@property(nonatomic,retain)GHBroadcast *issue;
 @property(nonatomic,retain)GHUser *user;
 @property(nonatomic,assign)NSUInteger commentID;
 @property(nonatomic,retain)NSString *body;
 @property(nonatomic,retain)NSDate *created;
 @property(nonatomic,retain)NSDate *updated;
 
-- (id)initWithIssue:(GHIssue *)theIssue andDictionary:(NSDictionary *)theDict;
-- (id)initWithIssue:(GHIssue *)theIssue;
+- (id)initWithIssue:(GHBroadcast *)theIssue andDictionary:(NSDictionary *)theDict;
+- (id)initWithIssue:(GHBroadcast *)theIssue;
 - (void)saveData;
 
 @end

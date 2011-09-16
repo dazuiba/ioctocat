@@ -1,20 +1,12 @@
-#import "RepositoriesController.h"
+#import "SettingsController.h"
 #import "RepositoryController.h"
-#import "GHRepository.h"
 #import "GHReposParserDelegate.h"
 #import "ASIHTTPRequest.h"
 #import "ASIFormDataRequest.h"
 #import "RepositoryCell.h"
 #import "iOctocat.h"
 
-
-@interface RepositoriesController ()
-- (void)displayRepositories:(GHRepositories *)repositories;
-- (NSMutableArray *)repositoriesInSection:(NSInteger)section;
-@end
-
-
-@implementation RepositoriesController
+@implementation SettingsController
 
 @synthesize user;
 @synthesize privateRepositories;
@@ -22,8 +14,8 @@
 @synthesize watchedRepositories;
 
 - (id)initWithUser:(GHUser *)theUser {
-    [super initWithNibName:@"Repositories" bundle:nil];
-	self.user = theUser;
+    [super initWithNibName:@"Settings" bundle:nil];
+		self.user = theUser;
     return self;
 }
 

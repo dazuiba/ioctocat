@@ -427,7 +427,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>addButton</string>
 							<string>issueCell</string>
-							<string>issuesControl</string>
+							<string>channelControl</string>
 							<string>loadingIssuesCell</string>
 							<string>noIssuesCell</string>
 						</object>
@@ -446,7 +446,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>addButton</string>
 							<string>issueCell</string>
-							<string>issuesControl</string>
+							<string>channelControl</string>
 							<string>loadingIssuesCell</string>
 							<string>noIssuesCell</string>
 						</object>
@@ -461,7 +461,7 @@
 								<string key="candidateClassName">IssueCell</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">issuesControl</string>
+								<string key="name">channelControl</string>
 								<string key="candidateClassName">UISegmentedControl</string>
 							</object>
 							<object class="IBToOneOutletInfo">

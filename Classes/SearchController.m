@@ -1,7 +1,4 @@
 #import "SearchController.h"
-#import "GHUsersParserDelegate.h"
-#import "GHReposParserDelegate.h"
-#import "RepositoryController.h"
 #import "UserController.h"
 #import "TrackCell.h"
 
@@ -83,20 +80,25 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (self.currentSearch.isLoading) return 1;
 	if (self.currentSearch.isLoaded && self.currentSearch.results.count == 0) return 1;
+	DJLog(@"count: %d",self.currentSearch.results.count);
 	return self.currentSearch.results.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	DJLog(@"row: %d",indexPath.row);
     if (!self.currentSearch.isLoaded) return loadingCell;
     if (self.currentSearch.results.count == 0) return noResultsCell;
 	id object = [self.currentSearch.results objectAtIndex:indexPath.row];
-	if ([object isKindOfClass:[GHRepository class]]) {
+	if ([object isKindOfClass:[GHTrack class]]) {
+		DJLog(@"cell GHTrack");
 		TrackCell *cell = (TrackCell *)[tableView dequeueReusableCellWithIdentifier:@"TrackCell"];
 		if (cell == nil) {
+			DJLog(@"cell before");
 			[[NSBundle mainBundle] loadNibNamed:@"TrackCell" owner:self options:nil];
+			DJLog(@"cell after");
 			cell = trackCell;
 		}
-		cell.track = (GHRepository *)object;
+		cell.track = (GHTrack *)object;
 		return cell;
 	} else if ([object isKindOfClass:[GHUser class]]) {
 		UserCell *cell = (UserCell *)[tableView dequeueReusableCellWithIdentifier:kUserCellIdentifier];
@@ -116,7 +118,7 @@
 	if (!self.currentSearch.isLoaded) return result;
 	if (self.currentSearch.results.count == 0) return result;
 	id object = [self.currentSearch.results objectAtIndex:0];
-	if ([object isKindOfClass:[GHRepository class]]) {
+	if ([object isKindOfClass:[GHTrack class]]) {
 		return 81.0;
 	}else {
 		return result;
@@ -124,16 +126,16 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	id object = [self.currentSearch.results objectAtIndex:indexPath.row];
-	UIViewController *viewController = nil;
-	if ([object isKindOfClass:[GHRepository class]]) {
-		viewController = [(RepositoryController *)[RepositoryController alloc] initWithRepository:(GHRepository *)object];
-	} else if ([object isKindOfClass:[GHUser class]]) {
-		viewController = [(UserController *)[UserController alloc] initWithUser:(GHUser *)object];
-	}
-	viewController.hidesBottomBarWhenPushed = YES;
-	[self.navigationController pushViewController:viewController animated:YES];
-	[viewController release];
+//	id object = [self.currentSearch.results objectAtIndex:indexPath.row];
+//	UIViewController *viewController = nil;
+//	if ([object isKindOfClass:[GHTrack class]]) {
+//		viewController = [(RepositoryController *)[RepositoryController alloc] initWithRepository:(GHTrack *)object];
+//	} else if ([object isKindOfClass:[GHUser class]]) {
+//		viewController = [(UserController *)[UserController alloc] initWithUser:(GHUser *)object];
+//	}
+//	viewController.hidesBottomBarWhenPushed = YES;
+//	[self.navigationController pushViewController:viewController animated:YES];
+//	[viewController release];
 }
 
 @end

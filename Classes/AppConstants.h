@@ -1,3 +1,16 @@
+
+// URLs
+#define kURLFormat @"http://localhost:3000/api/v1%@"
+#define kUserFormat @"/user/show/?login=%@"
+#define kInboxFormat @"/private.atom?box=%@"
+#define kUserFollowingFormat @"/user/following?login=%@"
+#define kUserFollowersFormat @"/user/followers?login=%@"
+
+#define kUserSearchFormat @"/user/search?q=%@"
+#define kRepoSearchFormat @"/ml/search?q=%@"
+#define kRepoXMLFormat @"/broadcast/show?id=%d"
+#define kBroadcastFormat @"/broadcast/show?id=%d"
+
 // Messages
 #define kAppErrorDomain @"Iq84FMErrorDomain"
 
@@ -22,17 +35,6 @@
 #define kProfileStatCellIdentifier @"ProfileStatCell"
 #define kBranchCellIdentifier @"BranchCell"
 #define kCommentCellIdentifier @"CommentCell"
-
-// URLs
-#define kURLFormat @"http://localhost:3000/api/v1%@"
-#define kUserFormat @"/user/show/?login=%@"
-#define kInboxFormat @"/private.atom?box=%@"
-#define kUserFollowingFormat @"/user/following?login=%@"
-#define kUserFollowersFormat @"/user/followers?login=%@"
-
-#define kUserSearchFormat @"/user/search?q=%@"
-#define kRepoSearchFormat @"/ml/search?q=%@"
-#define kRepoXMLFormat @"/broadcast/show?id=%@"
 
 
 
@@ -60,7 +62,6 @@
 #define kUserUnfollowFormat @"http://localhost:3000/api/v2/xml/user/unfollow/%@?token=%@"
 #define kRepoBranchesJSONFormat @"http://localhost:3000/api/v2/json/repos/show/%@/%@/branches"
 #define kRepoIssuesXMLFormat @"http://localhost:3000/api/v2/xml/issues/list/%@/%@/%@"
-#define kRepoIssueXMLFormat @"http://localhost:3000/api/v2/xml/issues/show/%@/%@/%d"
 #define kOpenIssueXMLFormat @"http://localhost:3000/api/v2/xml/issues/open/%@/%@"
 #define kEditIssueXMLFormat @"http://localhost:3000/api/v2/xml/issues/edit/%@/%@/%d"
 #define kIssueCommentsJSONFormat @"http://localhost:3000/api/v2/json/issues/comments/%@/%@/%d"

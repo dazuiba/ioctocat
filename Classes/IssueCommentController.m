@@ -1,16 +1,16 @@
 #import "IssueCommentController.h"
 #import "NSString+Extensions.h"
-#import "GHIssueComments.h"
-#import "GHIssueComment.h"
+#import "GHComments.h"
+#import "GHComment.h"
 
 
 @implementation IssueCommentController
 
-- (id)initWithIssue:(GHIssue *)theIssue {    
+- (id)initWithIssue:(GHBroadcast *)theIssue {    
     [super initWithNibName:@"IssueComment" bundle:nil];
 	
 	issue = [theIssue retain];
-	comment = [[GHIssueComment alloc] initWithIssue:issue];
+	comment = [[GHComment alloc] initWithIssue:issue];
     [comment addObserver:self forKeyPath:kResourceSavingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	
 	return self;

@@ -1,15 +1,15 @@
 #import <UIKit/UIKit.h>
 
 
-@class GHRepository;
+@class GHTrack;
 
 @interface TrackCell : UITableViewCell {
-	GHRepository *track;
+	GHTrack *track;
 @private
 	IBOutlet UILabel *userLabel;
 	IBOutlet UIImageView *gravatarView;
 }
 
-@property(nonatomic,retain)GHRepository *track;
+@property(nonatomic,retain)GHTrack *track;
 
 @end

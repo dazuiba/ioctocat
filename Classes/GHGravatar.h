@@ -17,5 +17,6 @@
 @property(nonatomic,readonly)NSString *cachedGravatarPath;
 @property(nonatomic,retain)GravatarLoader *gravatarLoader;
 - (void)loadedGravatar:(UIImage *)theImage;
+- (void)setAvatarAndLoad:(NSString *)urlString;
 
 @end

@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1024</int>
-		<string key="IBDocument.SystemVersion">10J869</string>
+		<string key="IBDocument.SystemVersion">10K540</string>
 		<string key="IBDocument.InterfaceBuilderVersion">804</string>
-		<string key="IBDocument.AppKitVersion">1038.35</string>
+		<string key="IBDocument.AppKitVersion">1038.36</string>
 		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -50,14 +50,10 @@
 							<object class="IBUIImageView" id="410783704">
 								<reference key="NSNextResponder" ref="843275550"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{8, 12}, {76, 61}}</string>
+								<string key="NSFrame">{{20, 12}, {76, 61}}</string>
 								<reference key="NSSuperview" ref="843275550"/>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<object class="NSCustomResource" key="IBUIImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">UserCellBackground.png</string>
-								</object>
 							</object>
 							<object class="IBUILabel" id="543810193">
 								<reference key="NSNextResponder" ref="843275550"/>
@@ -84,7 +80,7 @@
 							<object class="IBUIImageView" id="561439434">
 								<reference key="NSNextResponder" ref="843275550"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{8, 12}, {76, 61}}</string>
+								<string key="NSFrame">{{20, 12}, {76, 61}}</string>
 								<reference key="NSSuperview" ref="843275550"/>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -168,9 +164,9 @@
 						<reference key="object" ref="917459872"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="543810193"/>
 							<reference ref="410783704"/>
 							<reference ref="561439434"/>
-							<reference ref="543810193"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -212,11 +208,11 @@
 					<string>SearchController</string>
 					<string>UIResponder</string>
 					<string>TrackCell</string>
-					<string>{{97, 385}, {311, 81}}</string>
+					<string>{{303, 504}, {311, 81}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">P4AAAL+AAABBQAAAwkwAAA</bytes>
+						<bytes key="NSTransformStruct">P4AAAL+AAABBQAAAwoQAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
@@ -224,7 +220,7 @@
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">P4AAAL+AAABDAAAAwrgAAA</bytes>
+						<bytes key="NSTransformStruct">P4AAAL+AAABDFwAAwo4AAA</bytes>
 					</object>
 				</object>
 			</object>
@@ -395,12 +391,8 @@
 			<integer value="3100" key="NS.object.0"/>
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
-		<string key="IBDocument.LastKnownRelativeProjectPath">iOctocat.xcodeproj</string>
+		<string key="IBDocument.LastKnownRelativeProjectPath">../iOctocat.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
-		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">UserCellBackground.png</string>
-			<string key="NS.object.0">{320, 43}</string>
-		</object>
 		<string key="IBCocoaTouchPluginVersion">123</string>
 	</data>
 </archive>

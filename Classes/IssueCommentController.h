@@ -1,18 +1,18 @@
 #import <UIKit/UIKit.h>
-#import "GHIssue.h"
+#import "GHBroadcast.h"
 
-@class GHIssueComment;
+@class GHComment;
 
 @interface IssueCommentController : UIViewController <UITextFieldDelegate> {
   @private
-	GHIssueComment *comment;
-	GHIssue *issue;
+	GHComment *comment;
+	GHBroadcast *issue;
 	IBOutlet UITextView *bodyView;
 	IBOutlet UIBarButtonItem *postButton;
 	IBOutlet UIActivityIndicatorView *activityView;
 }
 
-- (id)initWithIssue:(GHIssue *)theIssue;
+- (id)initWithIssue:(GHBroadcast *)theIssue;
 - (IBAction)postComment:(id)sender;
 
 @end

@@ -1,12 +1,12 @@
 #import <UIKit/UIKit.h>
-#import "GHIssue.h"
+#import "GHBroadcast.h"
 
 
 @class LabeledCell, TextCell, CommentCell, IssuesController;
 
 @interface IssueController : UITableViewController <UIActionSheetDelegate> {
   @private
-	GHIssue *issue;
+	GHBroadcast *issue;
 	IssuesController *listController;
 	IBOutlet UIView *tableHeaderView;
 	IBOutlet UIView *tableFooterView;
@@ -25,7 +25,7 @@
 	IBOutlet CommentCell *commentCell;
 }
 
-- (id)initWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController;
+- (id)initWithIssue:(GHBroadcast *)theIssue andIssuesController:(IssuesController *)theController;
 - (IBAction)showActions:(id)sender;
 - (IBAction)addComment:(id)sender;
 

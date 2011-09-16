@@ -1,6 +1,6 @@
 #import "GHUser.h"
 #import "GHFeed.h"
-#import "GHRepository.h"
+#import "GHTrack.h"
 #import "GravatarLoader.h"
 #import "GHReposParserDelegate.h"
 #import "GHUsersParserDelegate.h"
@@ -13,7 +13,6 @@
 @interface GHUser ()
 - (void)parseXMLWithToken:(NSString *)token;
 - (void)setFollowing:(NSString *)theMode forUser:(GHUser *)theUser;
-- (void)setWatching:(NSString *)theMode forRepository:(GHRepository *)theRepository;
 - (void)followToggleFinished:(ASIHTTPRequest *)request;
 - (void)followToggleFailed:(ASIHTTPRequest *)request;
 - (void)watchToggleFinished:(ASIHTTPRequest *)request;
@@ -22,7 +21,6 @@
 
 
 @implementation GHUser
-@synthesize entryID;
 @synthesize name;
 @synthesize login;
 @synthesize email;
@@ -37,33 +35,20 @@
 @synthesize following;
 @synthesize followers;
 
-+ (id)user {
-	return [[[[self class] alloc] init] autorelease];
-}
-
 + (id)userForSearchTerm:(NSString *)theSearchTerm {
-	GHUser *user = [GHUser user];
+	GHUser *user = [GHUser resource];
 	user.searchTerm = theSearchTerm;
 	return user;
 }
 
 + (id)userWithLogin:(NSString *)theLogin {
-	GHUser *user = [GHUser user];
+	GHUser *user = [GHUser resource];
 	user.login = theLogin;
 	return user;
 }
 
 + (id)userWithDict:(NSDictionary *)attributes {
-	GHUser *user = [GHUser user];
-	user.login = [attributes objectForKey:@"login"];
-	[self setByDict:attributes];
-	return user;
-}
-
-- (id)init {
-	[super init];
-	[self addObserver:self forKeyPath:kUserLoginKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	return self;
+	return [super resourceWithDict:attributes];
 }
 
 - (id)initWithLogin:(NSString *)theLogin {
@@ -143,17 +128,14 @@
 		self.loadingStatus = GHResourceStatusLoaded;
 }
 
-- (void)setByDict:(NSDictionary *)dict{
-	self.entryID = [dict objectForKey:@"id"];
+- (void)setByDict:(NSDictionary *)dict{     
+	[super setByDict:dict];
 	self.name = [dict objectForKey:@"name"];
 	self.email =[dict objectForKey:@"email"];
 	self.bio = [dict objectForKey:@"bio"];
 	self.broadcastCount = [[dict objectForKey:@"broadcast_count"] integerValue];
 	self.favoritesCount = [[dict objectForKey:@"favorites_count"] integerValue];
-	self.createdAt = [dict objectForKey:@"created_at"];
-	self.avatarPath = [dict objectForKey:@"avatar"];
-	if(self.avatarPath)
-		[self.gravatarLoader loadURL:self.avatarPath];
+	self.createdAt = [dict objectForKey:@"created_at"];    
 }
 
 - (BOOL)isAuthenticated{

@@ -1,12 +1,12 @@
 #import <UIKit/UIKit.h>
-#import "GHIssue.h"
+#import "GHBroadcast.h"
 
 
 @class IssuesController;
 
 @interface IssueFormController : UITableViewController <UITextFieldDelegate> {
   @private
-	GHIssue *issue;
+	GHBroadcast *issue;
 	IssuesController *listController;
 	IBOutlet UIView *tableFooterView;
 	IBOutlet UITextField *titleField;
@@ -17,7 +17,7 @@
 	IBOutlet UIButton *saveButton;
 }
 
-- (id)initWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController;
+- (id)initWithIssue:(GHBroadcast *)theIssue andIssuesController:(IssuesController *)theController;
 - (IBAction)saveIssue:(id)sender;
 
 @end

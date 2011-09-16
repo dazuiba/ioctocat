@@ -1,10 +1,10 @@
 #import <UIKit/UIKit.h>
 
 
-@class GHIssue;
+@class GHBroadcast;
 
 @interface IssueCell : UITableViewCell {
-	GHIssue *issue;
+	GHBroadcast *issue;
   @private
 	IBOutlet UILabel *dateLabel;
 	IBOutlet UILabel *titleLabel;
@@ -14,6 +14,6 @@
 	IBOutlet UIImageView *iconView;
 }
 
-@property(nonatomic,retain)GHIssue *issue;
+@property(nonatomic,retain)GHBroadcast *issue;
 
 @end

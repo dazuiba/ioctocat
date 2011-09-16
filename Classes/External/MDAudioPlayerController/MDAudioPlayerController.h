@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 #import <QuartzCore/QuartzCore.h>
-
+@class GHTrack;
 @interface MDAudioPlayerController : UIViewController <AVAudioPlayerDelegate, UITableViewDelegate, UITableViewDataSource>
 {
 	NSMutableArray		*soundFiles;
@@ -90,7 +90,9 @@
 @property (nonatomic, assign) BOOL repeatOne;
 @property (nonatomic, assign) BOOL shuffle;
 
-- (MDAudioPlayerController *)initWithSoundFiles:(NSMutableArray *)songs atPath:(NSString *)path andSelectedIndex:(int)index;
+- (MDAudioPlayerController *)initWithSoundFiles:(NSMutableArray *)songs andSelectedIndex:(int)index;
++ (MDAudioPlayerController *)playChannel:(NSString *)channel;
++ (MDAudioPlayerController *)playTrack:(GHTrack *)track;
 - (void)dismissAudioPlayer;
 - (void)showSongFiles;
 - (void)showOverlayView;

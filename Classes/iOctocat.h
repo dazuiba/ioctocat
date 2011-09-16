@@ -7,8 +7,8 @@
 
 @interface iOctocat : NSObject <UIApplicationDelegate, UIActionSheetDelegate> {
   @private
-    IBOutlet UIWindow *window;
-    IBOutlet UITabBarController *tabBarController;
+  IBOutlet UIWindow *window;
+  IBOutlet UITabBarController *tabBarController;
 	IBOutlet UIView *authView;
 	IBOutlet MyFeedsController *feedController;
 	UIActionSheet *authSheet;
@@ -28,8 +28,8 @@
 - (GHUser *)currentUser;
 - (UIView *)currentView;
 - (GHUser *)userWithLogin:(NSString *)theUsername;
-
 - (NSDate *)lastReadingDateForURL:(NSURL *)url;
+- (void)presentPlayer:(NSString *)channel;
 - (void)setLastReadingDate:(NSDate *)date forURL:(NSURL *)url;
 
 @end

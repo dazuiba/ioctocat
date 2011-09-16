@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-#import "GHResourcesParserDelegate.h"
+#import "GHTrack.h"
 #import "GHResource.h"
 #import "iOctocat.h"
 
@@ -9,7 +9,6 @@
 	@private
 	NSString *urlFormat;
 	NSString *searchTerm;
-	GHResourcesParserDelegate *parserDelegate;
 }
 
 @property(nonatomic,retain)NSArray *results;
@@ -19,5 +18,3 @@
 - (id)initWithURLFormat:(NSString *)theUrlFormat;
 
 @end
-
-

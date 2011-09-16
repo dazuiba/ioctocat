@@ -2,7 +2,7 @@
 #import "GHUser.h"
 
 
-@interface RepositoriesController : UITableViewController {
+@interface SettingsController : UITableViewController {
   @private
 	IBOutlet UITableViewCell *loadingReposCell;
 	IBOutlet UITableViewCell *noPublicReposCell;
@@ -11,7 +11,7 @@
 	GHUser *user;
 	NSMutableArray *publicRepositories;
 	NSMutableArray *privateRepositories;
-    NSMutableArray *watchedRepositories;
+  NSMutableArray *watchedRepositories;
 }
 
 @property(nonatomic,retain) NSMutableArray *publicRepositories;

@@ -4,10 +4,9 @@
 #import "GHRepositories.h"
 
 
-@class GravatarLoader, GHRepository, GHFeed;
+@class GravatarLoader, GHTrack, GHFeed;
 
-@interface GHUser : GHGravatar {
-	NSUInteger entryID; 
+@interface GHUser : GHGravatar {                  
 	NSString *name;
 	NSString *login;
 	NSString *email;
@@ -22,8 +21,7 @@
   GHUsers *followers;
 	BOOL isAuthenticated;
 }
-
-@property(nonatomic)NSUInteger entryID;
+                                                  
 @property(nonatomic,retain)NSString *name;
 @property(nonatomic,retain)NSString *login;
 @property(nonatomic,retain)NSString *email;
@@ -49,7 +47,7 @@
 - (void)loadUser;
 - (void)loadedUsers:(id)theResult;
 - (BOOL)isFollowing:(GHUser *)anUser;
-- (BOOL)isWatching:(GHRepository *)aRepository;
+- (BOOL)isWatching:(GHTrack *)aRepository;
 - (void)followUser:(GHUser *)theUser;
 - (void)unfollowUser:(GHUser *)theUser;
 
