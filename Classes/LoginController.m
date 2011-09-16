@@ -16,7 +16,7 @@
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+  [super viewDidLoad];
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	loginField.text = [defaults valueForKey:kLoginDefaultsKey];
 	tokenField.text = [defaults valueForKey:kTokenDefaultsKey];

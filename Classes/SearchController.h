@@ -12,8 +12,7 @@
 	IBOutlet UISegmentedControl *searchControl;
 	IBOutlet UITableViewCell *loadingCell;
 	IBOutlet UITableViewCell *noResultsCell;
-	IBOutlet TrackCell *trackCell;
-  
+	IBOutlet TrackCell *trackCell; 
 	UserCell *userCell;
 	OverlayController *overlayController;
 	NSArray *searches;

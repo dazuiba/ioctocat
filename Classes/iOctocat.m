@@ -5,7 +5,7 @@
 @interface iOctocat ()
 - (void)postLaunch;
 - (void)presentLogin;
-- (void)dismissLogin;
+- (void)dismissModalView;
 - (void)showAuthenticationSheet;
 - (void)dismissAuthenticationSheet;
 - (void)authenticate;
@@ -177,13 +177,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	return (LoginController *)tabBarController.modalViewController;
 }
 
-- (void)presentPlayer:(NSString *)channel{
-//	if(channel == NULL){
-//		channel = @"1q84";
-//	}
-//  MDAudioPlayerController *player = [MDAudioPlayerController playChannel:channel];
-//	[tabBarController presentModalViewController:player animated:YES];
-//	[player release];
+- (void)presentPlayer:(GHTrack *)track{             
+	if(tabBarController.modalViewController) return;
+
+	PlayerController *playerCntroller = [[PlayerCntroller alloc] init];
+	[playerCntroller addTrack:track]
+	[playerCntroller play];
+	[tabBarController presentModalViewController:loginController animated:YES];
+	[playerCntroller release];
 }
 - (void)presentLogin {
 	if (self.loginController) return;
@@ -192,7 +193,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	[loginController release];
 }
 
-- (void)dismissLogin {
+- (void)dismissModalView {
 	if (self.loginController) [tabBarController dismissModalViewControllerAnimated:YES];
 }
 
@@ -209,7 +210,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 }
 
 - (void)proceedAfterAuthentication {
-	[self dismissLogin];
+	[self dismissModalView];
 	[feedController setupFeeds];
 	
 }

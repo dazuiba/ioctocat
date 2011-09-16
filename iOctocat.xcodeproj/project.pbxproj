@@ -23,6 +23,7 @@
 		229D8D1614215CD9009D6A85 /* TrackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 229D8D1514215CD9009D6A85 /* TrackCell.m */; };
 		22A3AD1A14219ABE005EE1C3 /* AudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A3AD1714219ABE005EE1C3 /* AudioStreamer.m */; };
 		22A3AD1B14219ABE005EE1C3 /* UIDevice+Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A3AD1914219ABE005EE1C3 /* UIDevice+Hardware.m */; };
+		22AC9AF414234377004B6436 /* PlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AC9AF314234377004B6436 /* PlayerController.m */; };
 		22D28CA1142306EB0044E18D /* GHTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D28C9F142306EB0044E18D /* GHTrack.m */; };
 		22FB82281423046B00D63F73 /* FeedEntryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FB82271423046B00D63F73 /* FeedEntryController.m */; };
 		22FB822B1423049100D63F73 /* GHFeedEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FB822A1423049100D63F73 /* GHFeedEntry.m */; };
@@ -171,6 +172,8 @@
 		22A3AD1714219ABE005EE1C3 /* AudioStreamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioStreamer.m; sourceTree = "<group>"; };
 		22A3AD1814219ABE005EE1C3 /* UIDevice+Hardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Hardware.h"; sourceTree = "<group>"; };
 		22A3AD1914219ABE005EE1C3 /* UIDevice+Hardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+Hardware.m"; sourceTree = "<group>"; };
+		22AC9AF214234377004B6436 /* PlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerController.h; sourceTree = "<group>"; };
+		22AC9AF314234377004B6436 /* PlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerController.m; sourceTree = "<group>"; };
 		22CE69BF12B7D0E900C92FC8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = iphoneos/System/Library/Frameworks/CFNetwork.framework; sourceTree = "<group>"; };
 		22D28C9F142306EB0044E18D /* GHTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHTrack.m; sourceTree = "<group>"; };
 		22D28CA0142306EB0044E18D /* GHTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHTrack.h; sourceTree = "<group>"; };
@@ -518,6 +521,8 @@
 				6F2D9A880FB1887300FFABE9 /* SearchController.m */,
 				6F2D9B4F0FB19AF800FFABE9 /* OverlayController.h */,
 				6F2D9B500FB19AF800FFABE9 /* OverlayController.m */,
+				22AC9AF214234377004B6436 /* PlayerController.h */,
+				22AC9AF314234377004B6436 /* PlayerController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -961,6 +966,7 @@
 				22D28CA1142306EB0044E18D /* GHTrack.m in Sources */,
 				2219ED04142327E5002223D7 /* MyFeedsController.m in Sources */,
 				2219ED29142328FF002223D7 /* SettingsController.m in Sources */,
+				22AC9AF414234377004B6436 /* PlayerController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

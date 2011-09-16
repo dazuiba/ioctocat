@@ -125,18 +125,35 @@
 	}
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//	id object = [self.currentSearch.results objectAtIndex:indexPath.row];
-//	UIViewController *viewController = nil;
-//	if ([object isKindOfClass:[GHTrack class]]) {
-//		viewController = [(RepositoryController *)[RepositoryController alloc] initWithRepository:(GHTrack *)object];
-//	} else if ([object isKindOfClass:[GHUser class]]) {
-//		viewController = [(UserController *)[UserController alloc] initWithUser:(GHUser *)object];
-//	}
-//	viewController.hidesBottomBarWhenPushed = YES;
-//	[self.navigationController pushViewController:viewController animated:YES];
-//	[viewController release];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {	
+ 	[tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
+	
+	[self showActionSheet];
 }
+
+- (void)showActionSheet
+{
+	// open a dialog with two custom buttons
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@""
+																													 delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil
+																									otherButtonTitles:@"播放", @"分享",@"取消", nil];
+	actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+//	actionSheet.destructiveButtonIndex = 1;	// make the second button red (destructive)
+	[actionSheet showInView:self.view]; // show from our table view (pops up in the middle of the table)
+	[actionSheet release];
+}
+
+// Action sheet delegate method.
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+	id object = [self.currentSearch.results objectAtIndex:[[self.tableView indexPathForSelectedRow] row]];
+	
+	if (buttonIndex == 0)
+	{
+		DJLog(@"%@",object);
+	}
+}
+
 
 @end
 
