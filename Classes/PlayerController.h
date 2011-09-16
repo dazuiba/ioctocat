@@ -14,9 +14,7 @@
 @interface PlayerController : UIViewController {
 	GHTrack		*track;         
 	IBOutlet UILabel *trackLabel;
-	IBOutlet UILabel *trackLabelAnimation;
-	IBOutlet UILabel *albumLabel;
-	IBOutlet UILabel *progressLabel;
+	IBOutlet UIProgressView *progressView;
 	
 	IBOutlet UIImageView *albumImageView;           
 	IBOutlet UIButton *playButton;
@@ -29,8 +27,9 @@
                             
 @property (nonatomic, retain) GHTrack *track;         
 @property (nonatomic, retain)AudioStreamer *streamer;
+- (PlayerController *)init;
 - (IBAction)playButtonPressed;
 - (IBAction)nextButtonPressed;
 - (IBAction)shareButtonPressed;
-
+- (void)play;
 @end

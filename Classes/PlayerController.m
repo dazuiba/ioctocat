@@ -10,8 +10,8 @@
 
 
 @implementation PlayerController
-@synthesize tracks;
-- (id)initWithTarget:(id)theTarget andSelector:(SEL)theSelector {
+@synthesize track;
+- (PlayerController *)init{
 	[super initWithNibName:@"Player" bundle:nil];
 	return self;
 }
@@ -34,7 +34,19 @@
 
 
                  
-                     
+- (void)updateProgress:(NSTimer *)updatedTimer
+{
+	if (streamer.bitRate != 0.0)
+	{   DJLog(@"progress: %f",streamer.progress);
+		progressView.progress = streamer.progress/100.0;
+		/*
+         if ([durationLabel.text isEqualToString:@""]) {
+         int duration = [[NSString stringWithFormat:@"%.0f", streamer.duration] intValue];
+         durationLabel.text = [NSString stringWithFormat:@"%d:%02d", duration/60, duration%60];
+         }
+         */
+	}
+}                                             
 
 #pragma mark Streamer
 
@@ -53,16 +65,8 @@
 		return;
 	}
 	[self destroyStreamer];
-	//NSLog(@"%@", urlString);
-	NSString *escapedValue = [(NSString *)CFURLCreateStringByAddingPercentEscapes(
-																				  nil, 
-																				  (CFStringRef)urlString, 
-																				  NULL, 
-																				  NULL, 
-																				  kCFStringEncodingUTF8)
-							  autorelease];
-	NSURL *url = [NSURL URLWithString:escapedValue];
-	streamer = [[AudioStreamer alloc] initWithURL:url];
+	DJLog(@"%@", [track streamURL]); 
+	streamer = [[AudioStreamer alloc] initWithURL:[track streamURL]];
 	
 	[self createTimers:YES];
 	
@@ -96,22 +100,44 @@
 	if (create) {
 		if (streamer) {
 			[self createTimers:NO];
-			progressUpdateTimer =
+			timer =
 			[NSTimer
 			 scheduledTimerWithTimeInterval:1.0
 			 target:self
 			 selector:@selector(updateProgress:)
 			 userInfo:nil
-			 repeats:YES];
+			 repeats:YES];    
 		}
 	}
 	else {
-		if (progressUpdateTimer)
+		if (timer)
 		{
-			[progressUpdateTimer invalidate];
-			progressUpdateTimer = nil;
+			[timer invalidate];
+			timer = nil;
 		}
 	}
 }
+
+- (void)playBackStateChanged:(NSNotification *)notification {
+	// 歌曲加载中
+	if ([streamer isWaiting]) {
+		DJLog(@"i am waiting");
+	} 
+	// 歌曲播放中
+	else if ([streamer isPlaying]) {
+		DJLog(@"i am playing"); 
+	} 
+	// 歌曲暂停中
+	else if ([streamer isPaused]) {
+		DJLog(@"i am paused");
+	} 
+	// 歌曲停止
+	else if ([streamer isIdle]) {
+		DJLog(@"i am idled");
+		[self destroyStreamer];
+
+	}
+	DJLog(@"errorCode: %d", streamer.errorCode);
+}                       
 
 @end

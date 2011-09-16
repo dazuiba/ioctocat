@@ -1,10 +1,11 @@
 #import <UIKit/UIKit.h>
 #import "LoginController.h"
+#import "PlayerController.h"
 #import "MyFeedsController.h"
 #import "GHUser.h"
 #import "ASINetworkQueue.h"
 
-
+@class GHTrack, PlayerController;
 @interface iOctocat : NSObject <UIApplicationDelegate, UIActionSheetDelegate> {
   @private
   IBOutlet UIWindow *window;
@@ -29,7 +30,7 @@
 - (UIView *)currentView;
 - (GHUser *)userWithLogin:(NSString *)theUsername;
 - (NSDate *)lastReadingDateForURL:(NSURL *)url;
-- (void)presentPlayer:(NSString *)channel;
+- (void)presentPlayer:(GHTrack *)track;
 - (void)setLastReadingDate:(NSDate *)date forURL:(NSURL *)url;
 
 @end

@@ -2,6 +2,7 @@
 #import "MyFeedsController.h"
 #import "SynthesizeSingleton.h"
 #import "NSString+Extensions.h"
+#import "GHTrack.h";
 @interface iOctocat ()
 - (void)postLaunch;
 - (void)presentLogin;
@@ -46,7 +47,17 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 		[defaults setValue:NO forKey:kClearAvatarCacheDefaultsKey];
 	}
 	[defaults synchronize];
-	if (launchDefault) [self authenticate];
+//	if (launchDefault) [self authenticate];
+    NSDictionary *albumDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                              @"http://static.1q84.fm/ml/albums/s130/104/104850.jpg",@"image_url",nil];   
+    
+    NSDictionary *trackDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                              @"Footprints Through The Snow",@"name",
+                                              @"http://static.1q84.fm/ml/tracks/100/1000041.mp3?token=1b9c811d9c9b7c8fcf5d2927dad37ab1",@"stream",
+                                              albumDict,@"album",
+                                              nil];
+    GHTrack *track = [GHTrack resourceWithDict:trackDict];
+    [self presentPlayer:track];
 }
 
 - (void)dealloc {
@@ -180,10 +191,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 - (void)presentPlayer:(GHTrack *)track{             
 	if(tabBarController.modalViewController) return;
 
-	PlayerController *playerCntroller = [[PlayerCntroller alloc] init];
-	[playerCntroller addTrack:track]
+	PlayerController *playerCntroller = [[PlayerController alloc] init];
+	playerCntroller.track = track;
 	[playerCntroller play];
-	[tabBarController presentModalViewController:loginController animated:YES];
+	[tabBarController presentModalViewController:playerCntroller animated:YES];
+    [track release];
 	[playerCntroller release];
 }
 - (void)presentLogin {
